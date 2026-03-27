@@ -19,7 +19,7 @@
 
 - (void) _initBackend
 {
-   if( ! _cgBackend.context)
+   if( ! _cgBackend.context && _backend != UIGraphicsBackendNone)
    {
 #ifdef DEBUG
       _backendFlags |= NVG_DEBUG;
