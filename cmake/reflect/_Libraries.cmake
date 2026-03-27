@@ -12,12 +12,12 @@ if( MULLE_TRACE_INCLUDE)
 endif()
 
 #
-# Generated from sourcetree: 9972E3D8-BC19-4251-B4AE-67CB887661FD;GL;no-all-load,no-build,no-cmake-inherit,no-cmake-platform-windows,no-delete,no-dependency,no-fs,no-header,no-import,no-platform-darwin,no-share,no-update;
+# Generated from sourcetree: 9972E3D8-BC19-4251-B4AE-67CB887661FD;GL;no-all-load,no-build,no-cmake-inherit,no-cmake-platform-windows,no-delete,no-dependency,no-fs,no-header,no-import,no-platform-darwin,no-share,no-update,only-platform-linux;
 # Disable with : `mulle-sourcetree mark GL `
 # Disable for this platform: `mulle-sourcetree mark GL no-cmake-platform-${MULLE_UNAME}`
 # Disable for a sdk: `mulle-sourcetree mark GL no-cmake-sdk-<name>`
 #
-if( NOT (${CMAKE_SYSTEM_NAME} MATCHES "Darwin" OR ${CMAKE_SYSTEM_NAME} MATCHES "Windows"))
+if( ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
    if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
       list( APPEND OS_SPECIFIC_LIBRARIES "GL")
    else()

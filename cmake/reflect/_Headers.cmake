@@ -13,18 +13,16 @@ endif()
 set( INCLUDE_DIRS
 src/reflect
 src/generic
-src/gpu
 src
-src/nanovg-specific
-src/nanovg-specific/microvg
+src/gpu
 )
 
 #
 # contents selected with patternfile ??-header--private-generated-headers
 #
 set( PRIVATE_GENERATED_HEADERS
-src/reflect/_MulleCGNanoVG-import-private.h
-src/reflect/_MulleCGNanoVG-include-private.h
+src/reflect/_MulleCGNanovg-import-private.h
+src/reflect/_MulleCGNanovg-include-private.h
 )
 
 #
@@ -33,51 +31,44 @@ src/reflect/_MulleCGNanoVG-include-private.h
 set( PRIVATE_GENERIC_HEADERS
 src/generic/import-private.h
 src/generic/include-private.h
-src/gpu/import-private.h
-src/gpu/include-private.h
-src/import-private.h
-src/include-private.h
-src/nanovg-specific/import-private.h
-src/nanovg-specific/include-private.h
 )
 
 #
 # contents selected with patternfile ??-header--private-headers
 #
 set( PRIVATE_HEADERS
-src/nanovg-specific/CGColor+NVGcolor-private.h
-src/nanovg-specific/CGPaintable+nanovg-private.h
-src/nanovg-specific/microvg/nanowrap-private.h
-src/nanovg-specific/nanovg-backend-private.h
+src/CGColor+NVGcolor-private.h
+src/CGPaintable+nanovg-private.h
+src/nanowrap-private.h
 )
 
 #
 # contents selected with patternfile ??-header--project-only-headers
 #
 set( PROJECT_ONLY_HEADERS
-src/nanovg-specific/_NotoEmoji-VariableFont_wght.ttf.inc
-src/nanovg-specific/_NotoSans-Bold.ttf.inc
-src/nanovg-specific/_NotoSans-Italic-VariableFont_wdth,wght.ttf.inc
-src/nanovg-specific/_NotoSansMono-Regular.ttf.inc
-src/nanovg-specific/_NotoSans-Regular.ttf.inc
-src/nanovg-specific/_NotoSansSymbols2-Regular.ttf.inc
-src/nanovg-specific/_NotoSansSymbols-VariableFont_wght.ttf.inc
-src/nanovg-specific/_NotoSans-VariableFont_wdth,wght.ttf.inc
-src/nanovg-specific/_Roboto-Regular.inc
-src/nanovg-specific/_emoji.inc
-src/nanovg-specific/_entypo.inc
-src/nanovg-specific/_entypo.ttf.inc
-src/nanovg-specific/microvg/nanovg-extensions.inc
+src/_NotoEmoji-VariableFont_wght.ttf.inc
+src/_NotoSans-Bold.ttf.inc
+src/_NotoSans-Italic-VariableFont_wdth,wght.ttf.inc
+src/_NotoSansMono-Regular.ttf.inc
+src/_NotoSans-Regular.ttf.inc
+src/_NotoSansSymbols2-Regular.ttf.inc
+src/_NotoSansSymbols-VariableFont_wght.ttf.inc
+src/_NotoSans-VariableFont_wdth,wght.ttf.inc
+src/_Roboto-Regular.inc
+src/_emoji.inc
+src/_entypo.inc
+src/_entypo.ttf.inc
+src/nanovg-extensions.inc
 )
 
 #
 # contents selected with patternfile ??-header--public-generated-headers
 #
 set( PUBLIC_GENERATED_HEADERS
-src/reflect/_MulleCGNanoVG-export.h
-src/reflect/_MulleCGNanoVG-import.h
-src/reflect/_MulleCGNanoVG-include.h
-src/reflect/_MulleCGNanoVG-provide.h
+src/reflect/_MulleCGNanovg-export.h
+src/reflect/_MulleCGNanovg-import.h
+src/reflect/_MulleCGNanovg-include.h
+src/reflect/_MulleCGNanovg-provide.h
 )
 
 #
@@ -92,22 +83,20 @@ src/generic/include.h
 # contents selected with patternfile ??-header--public-headers
 #
 set( PUBLIC_HEADERS
+src/CGAffineTransform+nanovg.h
+src/CGBackend+nanovg.h
+src/CGContext+DrawingConveniences.h
+src/CGContext+Drawing.h
+src/CGContext+nanovg.h
+src/CGFramebuffer+nanovg.h
+src/CGLayoutContext+nanovg.h
+src/CGPath+nanovg.h
 src/_MulleCGBackend.h
-src/MulleCGNanoVG.h
-src/generic/MulleObjCDeps+MulleCGNanoVG.h
+src/MulleCGNanovg.h
+src/generic/MulleObjCDeps+MulleCGNanovg.h
 src/gpu/CGContext+GPUShader.h
 src/gpu/CGContext+GPU.h
 src/gpu/CGFramebuffer+GPU.h
-src/nanovg-specific/CGAffineTransform+nanovg.h
-src/nanovg-specific/CGBackend+nanovg.h
-src/nanovg-specific/CGContext+DrawingConveniences.h
-src/nanovg-specific/CGContext+Drawing.h
-src/nanovg-specific/CGContext+nanovg.h
-src/nanovg-specific/CGFramebuffer+nanovg.h
-src/nanovg-specific/CGLayoutContext+nanovg.h
-src/nanovg-specific/CGPaint+Drawing.h
-src/nanovg-specific/CGPaintable.h
-src/nanovg-specific/CGPath+nanovg.h
-src/nanovg-specific/nanovg+UTF8String.h
+src/nanovg+UTF8String.h
 )
 

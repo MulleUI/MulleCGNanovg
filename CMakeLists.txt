@@ -8,7 +8,7 @@
 #
 cmake_minimum_required( VERSION 3.13...99.99)
 
-project( MulleCGNanoVG VERSION 0.0.1 LANGUAGES C)
+project( MulleCGNanovg VERSION 0.0.1 LANGUAGES C)
 
 # if use embedded project with symlinks and you want to distribute their
 # headers you probably need to turn this on
@@ -86,18 +86,10 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
    include( Library)
 
    # use LIBRARY_COMPILE_TARGET for compiler options
-   if( MULLE_CG_BACKEND STREQUAL "D3D11")
-      target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PUBLIC MULLE_CG_BACKEND_D3D11)
-   elseif( MULLE_CG_BACKEND STREQUAL "VULKAN")
-      target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PUBLIC MULLE_CG_BACKEND_VULKAN)
-   elseif( MULLE_CG_BACKEND STREQUAL "METAL")
-      target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PUBLIC MULLE_CG_BACKEND_METAL)
-   else()
-      target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PUBLIC MULLE_CG_BACKEND_OPENGL)
-   endif()
    target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PUBLIC)
    target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PRIVATE
       CG_COLOR_STRUCT_DEFINED   # nanovg defines struct NVGcolor, CGColor.h must not redefine it
+      MULLE__NANOVG_BUILD       # export nanovg.h functions from this DLL
    )
    target_compile_options( "${LIBRARY_COMPILE_TARGET}" PRIVATE
       -include mulle-nanovg/nanovg.h  # force nanovg.h before any header so NVGcolor is defined first
@@ -106,7 +98,7 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
 
    # nanovg-extensions.inc must be compiled as part of nanovg.c internals
    set_source_files_properties( mulle-nanovg/src/nanovg.c PROPERTIES
-      COMPILE_DEFINITIONS "NANOVG_EXTENSION_SOURCE=\"${CMAKE_CURRENT_SOURCE_DIR}/src/nanovg-specific/microvg/nanovg-extensions.inc\""
+      COMPILE_DEFINITIONS "NANOVG_EXTENSION_SOURCE=\"${CMAKE_CURRENT_SOURCE_DIR}/src/nanovg-extensions.inc\""
    )
    # use LIBRARY_LINK_TARGET for linker options
    if( LINK_PHASE)

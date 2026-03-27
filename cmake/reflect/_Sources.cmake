@@ -11,25 +11,22 @@ endif()
 # contents selected with patternfile ??-source--sources
 #
 set( SOURCES
-src/MulleCGNanoVG.m
-src/gpu/CGContext+GPUShader-opengl.m
-src/gpu/CGContext+GPU-opengl.m
-src/gpu/CGFramebuffer+GPU-opengl.m
-src/nanovg-specific/CGBackendFunctionTable+nanovg.m
-src/nanovg-specific/CGContext+nanovgTexture.m
-src/nanovg-specific/CGContext+nanovg.m
-src/nanovg-specific/CGFramebuffer+nanovg.m
-src/nanovg-specific/CGFunctionTable+nanovg.m
-src/nanovg-specific/CGLayoutContext+CGFont+nanovg.m
-src/nanovg-specific/CGLayoutContext-impl.m
-src/nanovg-specific/CGLayoutContext+nanovg.m
-src/nanovg-specific/CGPath+nanovg.c
-src/nanovg-specific/nanovg+UTF8String.m
+src/CGContext+nanovgTexture.m
+src/CGContext+nanovg.m
+src/CGFramebuffer+nanovg.m
+src/CGFunctionTable+nanovg.m
+src/CGImage+nanovg.m
+src/CGLayoutContext+CGFont+nanovg.m
+src/CGLayoutContext+nanovg.m
+src/CGPath+nanovg.c
+src/gpu/CGContext+GPU-d3d11.m
+src/gpu/CGFramebuffer+GPU-d3d11.m
+src/nanovg+UTF8String.m
 )
 
 #
 # contents selected with patternfile ??-source--stage2-sources
 #
 set( STAGE2_SOURCES
-src/generic/MulleObjCDeps+MulleCGNanoVG.m
+src/generic/MulleObjCDeps+MulleCGNanovg.m
 )

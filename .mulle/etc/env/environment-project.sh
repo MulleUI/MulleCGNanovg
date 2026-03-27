@@ -20,7 +20,7 @@ export PROJECT_ASSET_DIR="DEFAULT"
 #
 #
 #
-export PROJECT_NAME="MulleCGNanoVG"
+export PROJECT_NAME="MulleCGNanovg"
 
 
 #

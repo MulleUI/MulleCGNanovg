@@ -14,7 +14,7 @@
  * that we assume to be there if "include-private.h" were to exist.
  */
 #ifdef __has_include
-# if __has_include( "_MulleCGNanoVG-include-private.h")
+# if __has_include( "_MulleCGNanovg-include-private.h")
 #   include "include-private.h"
 # endif
 #endif
@@ -26,6 +26,6 @@
    Here the prefix is harmless and serves disambiguation. If you have no
    sourcetree, then you don't need it.
  */
-#import "_MulleCGNanoVG-import-private.h"
+#import "_MulleCGNanovg-import-private.h"
 
 /* You can add some more import statements here */

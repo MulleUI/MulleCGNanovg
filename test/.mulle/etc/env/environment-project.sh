@@ -8,7 +8,7 @@ export PROJECT_TYPE="none"
 #
 #
 #
-export PROJECT_NAME="MulleCGNanoVG"
+export PROJECT_NAME="MulleCGNanovg"
 
 
 #

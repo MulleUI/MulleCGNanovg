@@ -12,7 +12,7 @@
 // this is a global symbol that is exposed, which can be used to detect
 // if this library is available
 
-#define HAVE_IMPORT_MULLE_CG_NANO_VG
+#define HAVE_IMPORT_MULLE_CG_NANOVG
 
 /*
  * Get C includes first. As "include.h" is a generic name,
@@ -20,7 +20,7 @@
  * that we assume to be there if "include.h" were to exist.
  */
 #ifdef __has_include
-# if __has_include( "_MulleCGNanoVG-include.h")
+# if __has_include( "_MulleCGNanovg-include.h")
 #   include "include.h"
 # endif
 #else
@@ -30,28 +30,28 @@
 //
 // .h:
 // #import "import.h"
-// MULLE_CG_NANO_VG_GLOBAL char *   aGlobalString;
-// MULLE_CG_NANO_VG_GLOBAL void     aGlobalFunction( void);
+// MULLE_CG_NANOVG_GLOBAL char *   aGlobalString;
+// MULLE_CG_NANOVG_GLOBAL void     aGlobalFunction( void);
 //
 // .m:
 // #import "import-private.h"
-// MULLE_CG_NANO_VG_GLOBAL_VAR
+// MULLE_CG_NANOVG_GLOBAL_VAR
 // char *  aGlobalString = "VfL Bochum 1848";
-// MULLE_CG_NANO_VG_GLOBAL
+// MULLE_CG_NANOVG_GLOBAL
 // void   aGlobalFunction( void) {}
 //
-# ifndef MULLE_CG_NANO_VG_GLOBAL
-#  ifdef MULLE_CG_NANO_VG_BUILD
-#   define MULLE_CG_NANO_VG_GLOBAL       MULLE_C_GLOBAL
-#   define MULLE_CG_NANO_VG_GLOBAL_VAR   MULLE_C_GLOBAL
+# ifndef MULLE_CG_NANOVG_GLOBAL
+#  ifdef MULLE_CG_NANOVG_BUILD
+#   define MULLE_CG_NANOVG_GLOBAL       MULLE_C_GLOBAL
+#   define MULLE_CG_NANOVG_GLOBAL_VAR   MULLE_C_GLOBAL
 #  else
-#   if defined( MULLE_CG_NANO_VG_INCLUDE_DYNAMIC) || (defined( MULLE_INCLUDE_DYNAMIC) && ! defined( MULLE_CG_NANO_VG_INCLUDE_STATIC))
-#    define MULLE_CG_NANO_VG_GLOBAL      MULLE_C_GLOBAL
+#   if defined( MULLE_CG_NANOVG_INCLUDE_DYNAMIC) || (defined( MULLE_INCLUDE_DYNAMIC) && ! defined( MULLE_CG_NANOVG_INCLUDE_STATIC))
+#    define MULLE_CG_NANOVG_GLOBAL      MULLE_C_GLOBAL
 #   else
-#    define MULLE_CG_NANO_VG_GLOBAL      extern
+#    define MULLE_CG_NANOVG_GLOBAL      extern
 #   endif
 #  endif
-#  define MULLE_CG_NANO_VG_GLOBAL_VAR    MULLE_C_GLOBAL
+#  define MULLE_CG_NANOVG_GLOBAL_VAR    MULLE_C_GLOBAL
 # endif
 #endif
 
@@ -61,6 +61,6 @@
    sourcetree, then you don't need it.
  */
 
-#import "_MulleCGNanoVG-import.h"
+#import "_MulleCGNanovg-import.h"
 
 /* You can add some more import statements here */

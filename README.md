@@ -1,6 +1,6 @@
-# MulleCGNanoVG
+# MulleCGNanovg
 
-#### 🛸 MulleCGNanoVG does something
+#### 🛸 MulleCGNanovg does something
 
 It works, sometimes.
 
@@ -13,8 +13,8 @@ recursive package management with cross-platform builds via **cmake**:
 | Action  | Command                               | Description               |
 |---------|---------------------------------------|---------------------------|
 | Build   | `mulle-sde craft [--release/--debug]` | Builds into local `kitchen` folder |
-| Add     | `mulle-sde dependency add --c --github <|GITHUB_USER|> MulleCGNanoVG` | Add MulleCGNanoVG to another mulle-sde project as a dependency |
-| Install | `mulle-sde install --prefix /usr/local https://github.com/<|GITHUB_USER|>/MulleCGNanoVG.git` | Like `make install` |
+| Add     | `mulle-sde dependency add --c --github <|GITHUB_USER|> MulleCGNanovg` | Add MulleCGNanovg to another mulle-sde project as a dependency |
+| Install | `mulle-sde install --prefix /usr/local https://github.com/<|GITHUB_USER|>/MulleCGNanovg.git` | Like `make install` |
 
 
 ### Manual Installation
