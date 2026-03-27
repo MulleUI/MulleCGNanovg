@@ -87,7 +87,7 @@ static inline struct NVGcontext   *_CGContextBaseGetNVGContext( CGContextBase *s
 
 @interface CGContextBase( nanovg)
 
-+ (NVGcontext *) createPathContext;
++ (CGContext *) createPathContext;
 
 @end
 
