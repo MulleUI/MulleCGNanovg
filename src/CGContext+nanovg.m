@@ -17,24 +17,6 @@
 
 @implementation CGContext ( nanovg)
 
-- (void) _initBackend
-{
-   // if _cgBackend.context is clear, then we are a not a subclass so we
-   // init as a real CGContext,
-   if( ! _cgBackend.context)
-   {
-#ifdef DEBUG
-      _backendFlags |= NVG_DEBUG;
-#endif
-      [self _initNanovg:_backendFlags];
-      if( ! _cgBackend.context)
-         return;  // don't create a gimped layout context if this failed
-   }
-
-   [super _initBackend]; // let CGLayoutContext do the rest
-}
-
-
 // flushes drawings doesn't reset glViewport or reset internal caches
 - (void) flushRender
 {

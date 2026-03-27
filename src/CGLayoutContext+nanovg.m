@@ -40,22 +40,6 @@
 
 // just for a stupid compiler warning
 
-CGFont  *CGLayoutContextUseFontWithNameUTF8String( CGLayoutContext *self, char *name)
-{
-   CGFont            *font;
-   struct NVGcontext *vg;
-
-   font = [self fontWithNameUTF8String:name];
-   if( font)
-   {
-      vg = CGLayoutContextGetNVGContext( self);
-      nvgFontFace( vg, [font nameUTF8String]);
-   }
-   else
-      CGContextRenderLog( "Font %s is unknown\n", name);
-   return( font);
-}
-
 
 - (CGFont *) fontWithCData:(struct mulle_data) data
         fontNameUTF8String:(char *) name

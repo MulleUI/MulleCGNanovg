@@ -40,3 +40,15 @@ export MULLE_EMULATOR__WINDOWS="WINEDEBUG=fixme-all,err-all wine"
 export MULLE_SOURCETREE_PLATFORMS="${MULLE_UNAME}:windows"
 
 
+#
+#
+#
+export MULLE_CG_NANOVG_GL_NODETYPE="symlink"
+
+
+#
+#
+#
+export MULLE_CG_NANOVG_GL_URL="../../MulleCGNanovgGL"
+
+
