@@ -71,6 +71,7 @@ static void        _arcRadians( void *vg, CACircle c, CGFloat r1, CGFloat r2, CA
 static void        _fill( void *vg)                                                                      { mvgFill( VG); }
 static void        _stroke( void *vg)                                                                    { mvgStroke( VG); }
 static void        _addCGPath( void *vg, struct CGPath *path)                                           { mvgAddCGPath( VG, (CGPath *) path); }
+static void        _copyPath( void *vg, void *src_vg)                                                   { nvgCopyPath( VG, (NVGcontext *) src_vg); }
 
 static void   _setFillLinearGradient( void *vg, CGPoint s, CGPoint e, CGColor sc, CGColor ec)            { mvgFillPaint( VG, mvgLinearGradient( VG, s, sc, e, ec)); }
 static void   _setStrokeLinearGradient( void *vg, CGPoint s, CGPoint e, CGColor sc, CGColor ec)          { mvgStrokePaint( VG, mvgLinearGradient( VG, s, sc, e, ec)); }
@@ -176,6 +177,7 @@ CGFunctionTable   CGNanoVGFunctionTable =
    .fill                          = _fill,
    .stroke                        = _stroke,
    .addCGPath                     = _addCGPath,
+   .copyPath                      = _copyPath,
 
    .setFillLinearGradient         = _setFillLinearGradient,
    .setStrokeLinearGradient       = _setStrokeLinearGradient,
