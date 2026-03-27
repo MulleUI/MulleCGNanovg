@@ -1,6 +1,5 @@
       { @selector( CGContext), @selector( Texture) },      // 80b7b568;CGContext;94c55949;Texture
       { @selector( CGContext), @selector( nanovg) },      // 80b7b568;CGContext;df06d543;nanovg
-      { @selector( CGContext), @selector( nanovgBackend) },      // 80b7b568;CGContext;74ddaccf;nanovgBackend
       { @selector( CGContextBase), @selector( nanovg) },      // 750419bb;CGContextBase;df06d543;nanovg
       { @selector( CGFramebuffer), @selector( nanovg) },      // ef762cef;CGFramebuffer;df06d543;nanovg
       { @selector( CGLayoutContext), @selector( CGFontNanoVG) },      // ca9fd8c1;CGLayoutContext;c9fab8f6;CGFontNanoVG
