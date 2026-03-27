@@ -22,6 +22,15 @@
 #ifndef NVG_FONT_ONLY
 # define NVG_FONT_ONLY      (1<<4)
 #endif
+#ifndef NVG_CLEARTYPE
+# define NVG_CLEARTYPE      (1<<5)
+#endif
+#ifndef NVG_MSAA
+# define NVG_MSAA           (1<<6)
+#endif
+#ifndef NVG_NO_DRAWING
+# define NVG_NO_DRAWING     (1<<7)
+#endif
 
 #include <mulle-c11/mulle-c11-bool.h>
 #include <mulle-c11/mulle-c11-integer.h>

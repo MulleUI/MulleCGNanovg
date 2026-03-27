@@ -14,7 +14,7 @@
 static inline struct CGFunctionTable *
    CGBackendGetFunctions( struct CGBackend *backend)
 {
-   return( (struct CGFunctionTable *) backend->functions);
+   return( &backend->functions);
 }
 
 #endif
