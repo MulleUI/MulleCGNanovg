@@ -106,6 +106,74 @@
 }
 
 
+- (FILE *) setTraceFile:(FILE *) file
+{
+   return( nvgTrace( (struct NVGcontext *) _cgBackend.context, file));
+}
+
+@end
+
+
+@implementation CGContext ( nanovgBackend)
+
++ (BOOL) supportsAntiAliasing
+{
+#ifdef NANOVG_HAVE_MSAA
+   return( YES);
+#endif
+   return( NO);
+}
+
+
++ (char *) nanoVGBackendUTF8String
+{
+#ifdef NANOVG_GL3_IMPLEMENTATION
+   return( "OpenGL v3.2+");
+#endif
+#ifdef NANOVG_GLES2_IMPLEMENTATION
+   return( "GLES v2.0+");
+#endif
+#ifdef NANOVG_GLES3_IMPLEMENTATION
+   return( "GLES v3.2+");
+#endif
+#ifdef NANOVG_D3D11_IMPLEMENTATION
+   return( "Direct3D 11");
+#endif
+   abort();
+}
+
+
++ (CGContextNanoVGBackend) nanoVGBackend
+{
+#ifdef NANOVG_GL3_IMPLEMENTATION
+   return( CG_GL3_2);
+#endif
+#ifdef NANOVG_GLES2_IMPLEMENTATION
+   return( CG_GLES2);
+#endif
+#ifdef NANOVG_GLES3_IMPLEMENTATION
+   return( CG_GLES3_2);
+#endif
+#ifdef NANOVG_D3D11_IMPLEMENTATION
+   return( CG_D3D11);
+#endif
+   abort();
+}
+
+
+- (char *) nanovgInfoUTF8String
+{
+   char   *s;
+
+   s = MulleObjC_asprintf( "%s%s%s%s%s",
+                           [[self class] nanoVGBackendUTF8String],
+                           _backendFlags & NVG_ANTIALIAS ? " EdgeAA" : "",
+                           _backendFlags & NVG_CLEARTYPE ? " ClearType" : "",
+                           _backendFlags & NVG_STENCIL_STROKES ? " Stencil" : "",
+                           _backendFlags & NVG_MSAA ? " MSAA" : "");
+   return( s);
+}
+
 @end
 
 #pragma clang diagnostic pop
