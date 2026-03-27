@@ -15,7 +15,6 @@ src/CGContext+nanovgTexture.m
 src/CGContext+nanovg.m
 src/CGFramebuffer+nanovg.m
 src/CGFunctionTable+nanovg.m
-src/CGImage+nanovg.m
 src/CGLayoutContext+CGFont+nanovg.m
 src/CGLayoutContext+nanovg.m
 src/CGPath+nanovg.c

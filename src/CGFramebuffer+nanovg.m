@@ -112,17 +112,5 @@
    nvgBeginFrame( vg, bitmapSize.width, bitmapSize.height, ratio);
 }
 
-
-- (void) willeEndFBRender:(struct CGFramebufferRenderInfo *) memo
-{
-}
-
-
-- (struct CGBitmap) RGBABytesBitmap:(struct mulle_allocator *) allocator
-{
-   return( [_context RGBABytesBitmapOfImage:self
-                                  allocator:allocator]);
-}
-
 @end
 

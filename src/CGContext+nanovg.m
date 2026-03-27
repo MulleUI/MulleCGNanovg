@@ -100,51 +100,11 @@
 }
 
 
-- (CGImage *) resolveMultiSampleImage:(CGImage *) image
-{
-   NSUInteger                    textureFlags;
-   CGFramebuffer                 *layer;
-   struct CGContextFramebuffer   previous;
-
-   CGContextRenderLog( "");
-
-   assert( [image isMultiSample]);
-
-   textureFlags  = [image textureFlags] & ~NVG_IMAGE_MSAA;
-   layer         = [CGFramebuffer framebufferWithBitmapSize:[image bitmapSize]
-                                               textureFlags:textureFlags
-                                             nameUTF8String:[image nameUTF8String]
-                                                    context:self];
-
-   previous = [self bindFramebuffer:CGContextFramebufferMakeWithFramebuffer( layer)];
-   [self blitRect:CGRectMakeWithOriginAndSize( CGPointZero, [layer size])
-            image:image
-            scale:NO];
-   [self bindFramebuffer:previous];
-
-   return( layer);
-}
-
-
 - (void) reset
 {
    nvgReset( _cgBackend.context);
 }
 
-
-@end
-
-// No-op stubs — overridden by CGContext(Errors) in MulleCGNanovgGL
-@implementation CGContext( BackendErrors)
-
-- (void) _checkBackendError:(char *) str
-{
-}
-
-- (BOOL) resetBackendError
-{
-   return( NO);
-}
 
 @end
 
