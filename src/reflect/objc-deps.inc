@@ -1,3 +1,5 @@
+      { @selector( MulleObjCDeps), @selector( MulleCG) },      // 3c20656f;MulleObjCDeps;d422218a;MulleCG
+      { @selector( MulleObjCDeps), @selector( MulleUIBase) },      // 3c20656f;MulleObjCDeps;3ebba954;MulleUIBase
       { @selector( CGContext), @selector( Texture) },      // 80b7b568;CGContext;94c55949;Texture
       { @selector( CGContext), @selector( nanovg) },      // 80b7b568;CGContext;df06d543;nanovg
       { @selector( CGContextBase), @selector( nanovg) },      // 750419bb;CGContextBase;df06d543;nanovg
