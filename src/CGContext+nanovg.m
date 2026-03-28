@@ -17,6 +17,15 @@
 
 @implementation CGContext ( nanovg)
 
+- (void) _setNVGContext:(NVGcontext *) nvg
+         functionTable:(CGFunctionTable *) functions
+  backendFunctionTable:(CGBackendFunctionTable *) backendFunctions
+{
+   _cgBackend.context          = nvg;
+   _cgBackend.functions        = *functions;
+   _cgBackend.backendFunctions = *backendFunctions;
+}
+
 - (void) _initBackend
 {
    if( ! _cgBackend.context && _backend != UIGraphicsBackendNone)

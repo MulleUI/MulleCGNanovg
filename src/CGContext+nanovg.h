@@ -76,6 +76,11 @@ static inline struct NVGcontext   *_CGContextBaseGetNVGContext( CGContextBase *s
 
 @interface CGContext( nanovg)
 
+- (instancetype) _initAsPathContext;
+- (void) _setNVGContext:(NVGcontext *) nvg
+         functionTable:(CGFunctionTable *) functions
+  backendFunctionTable:(CGBackendFunctionTable *) backendFunctions;
+
 + (CGContextNanoVGBackend) nanoVGBackend;
 + (char *) nanoVGBackendUTF8String;
 
