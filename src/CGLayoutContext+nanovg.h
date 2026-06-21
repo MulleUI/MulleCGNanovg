@@ -6,8 +6,8 @@
 
 @interface CGLayoutContext( nanovg)
 
-- (void) _initBackend;
-- (void) _doneBackend;
+- (void) _initFontBackend;
+- (void) _doneFontBackend;
 
 @end
 
@@ -20,7 +20,7 @@
 @end
 
 //
-// use these functions, during rendering where we assume _cgBackend.context is not
+// use these functions, during rendering where we assume _fontContext is not
 // suddenly changed by someone
 //
 MULLE_C_CONST_RETURN
@@ -28,14 +28,14 @@ static inline struct NVGcontext   *CGLayoutContextGetNVGContext( CGLayoutContext
 {
    if( ! self)
       return( NULL);
-   return( (struct NVGcontext *) ((struct{ @defs( CGLayoutContext); } *) self)->_cgBackend.context);
+   return( (struct NVGcontext *) ((struct{ @defs( CGLayoutContext); } *) self)->_fontContext);
 }
 
 
 MULLE_C_CONST_RETURN
 static inline struct NVGcontext   *_CGLayoutContextGetNVGContext( CGLayoutContext *self)
 {
-   return( (struct NVGcontext *) ((struct{ @defs( CGLayoutContext); } *) self)->_cgBackend.context);
+   return( (struct NVGcontext *) ((struct{ @defs( CGLayoutContext); } *) self)->_fontContext);
 }
 
 

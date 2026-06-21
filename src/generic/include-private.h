@@ -27,5 +27,6 @@
 #include "_MulleCGNanovg-include-private.h"
 
 /* You can add some more include statements here */
+#include <mulle-nanovg/nanovg.h>
 
 #endif

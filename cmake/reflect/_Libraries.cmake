@@ -112,3 +112,69 @@ else()
       endif()
    endif()
 endif()
+
+
+#
+# Generated from sourcetree: 71B7379C-8F95-48AF-BF4E-7CE563C7A60E;png;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;
+# Disable with : `mulle-sourcetree mark png `
+# Disable for this platform: `mulle-sourcetree mark png no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark png no-cmake-sdk-<name>`
+#
+if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
+   list( APPEND OS_SPECIFIC_LIBRARIES "png")
+else()
+   if( NOT PNG_LIBRARY)
+      find_library( PNG_LIBRARY NAMES
+         png
+      )
+      message( STATUS "PNG_LIBRARY is ${PNG_LIBRARY}")
+      #
+      # The order looks ascending, but due to the way this file is read
+      # it ends up being descending, which is what we need.
+      #
+      if( PNG_LIBRARY)
+         #
+         # Add PNG_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+         # Disable with: `mulle-sourcetree mark png no-cmake-add`
+         #
+         list( APPEND OS_SPECIFIC_LIBRARIES ${PNG_LIBRARY})
+         # intentionally left blank
+      else()
+         # Disable with: `mulle-sourcetree mark png no-require-link`
+         message( SEND_ERROR "PNG_LIBRARY was not found in png")
+      endif()
+   endif()
+endif()
+
+
+#
+# Generated from sourcetree: D1739F30-9DEB-4E5D-B8AF-9FA86B3C6970;z;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;
+# Disable with : `mulle-sourcetree mark z `
+# Disable for this platform: `mulle-sourcetree mark z no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark z no-cmake-sdk-<name>`
+#
+if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
+   list( APPEND OS_SPECIFIC_LIBRARIES "z")
+else()
+   if( NOT Z_LIBRARY)
+      find_library( Z_LIBRARY NAMES
+         z
+      )
+      message( STATUS "Z_LIBRARY is ${Z_LIBRARY}")
+      #
+      # The order looks ascending, but due to the way this file is read
+      # it ends up being descending, which is what we need.
+      #
+      if( Z_LIBRARY)
+         #
+         # Add Z_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+         # Disable with: `mulle-sourcetree mark z no-cmake-add`
+         #
+         list( APPEND OS_SPECIFIC_LIBRARIES ${Z_LIBRARY})
+         # intentionally left blank
+      else()
+         # Disable with: `mulle-sourcetree mark z no-require-link`
+         message( SEND_ERROR "Z_LIBRARY was not found in z")
+      endif()
+   endif()
+endif()

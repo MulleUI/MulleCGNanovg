@@ -1,7 +1,4 @@
-#import <MulleCG/CGFramebuffer.h>
-
-
-#import <MulleCG/CGContext+Texture.h>  // for CGGPUFramebuffer
+#import "import.h"
 
 struct CGFrameInfo;
 
@@ -16,11 +13,6 @@ struct CGFrameInfo;
 // Use CGContext bindFramebuffer: to bind/unbind a layer, don't call directly
 - (void) _bindToContext;
 - (void) _unbindFromContext;
-
-- (void) didBeginFBRenderWithBitmapSize:(CGPixelSize) bitmapSize
-                        devicePixelRatio:(CGFloat) ratio;
-
-- (void) willeEndFBRender:(struct CGFramebufferRenderInfo *) memo;
 
 @end
 

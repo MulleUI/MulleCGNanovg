@@ -1,40 +1,61 @@
 //
 // Copyright (c) 2023 Nat!, Mulle kybernetiK
 //
-#import "CGLayoutContext+nanovg.h"
-
 #import "import-private.h"
+
+#import "CGLayoutContext+nanovg.h"
+#import "CGContext+GPUFuture.h"
+#import "CGContext+nanovg.h"
+#import "CGLayoutContext+CGFont.h"
 
 #include "nanowrap-private.h"
 
-#import <MulleCG/CGContext+DebugPrivate.h>
-#import "CGContext+GPU.h"
-#import "CGContext+nanovg.h"
-#import "CGContext+Drawing.h"
-#import "CGLayoutContext+CGFont.h"
-#import "_MulleCGBackend.h"
+extern mulle_thread_mutex_t   CGLayoutContextFreeTypeLock;
 
 
 @implementation CGLayoutContext( nanovg)
 
-- (void) _initBackend
+
+- (void) _initFontNanovg
 {
-   // if _cgBackend.context is clear, then we are a not a subclass so we
-   // init as a real CGLayoutContext,
-   if( ! _cgBackend.context)
+   NVGparams   params;
+
+   memset( &params, 0, sizeof( params));
+   params.contextType = NVG_FONT_CONTEXT;
+   params.cStates     = 32;
+
+   mulle_thread_mutex_do( CGLayoutContextFreeTypeLock)
    {
-      _backendFlags |= NVG_FONT_ONLY;
-#ifdef DEBUG
-      _backendFlags |= NVG_DEBUG;
-#endif
-      [self _initNanovg];
+      _fontContext = nvgCreateInternal( &params);
    }
+   assert( _fontContext);
 }
 
 
-- (void) _doneBackend
+- (void) _initFontBackend
 {
-   [self _doneNanovg];
+   _fontFunctions = CGNanoVGFontFunctionTable;
+   // CGContext pre-sets _fontContext before calling super init — just use it
+   if( _fontContext)
+      return;
+
+   // standalone CGLayoutContext — create our own font-only nanovg context
+   [self _initFontNanovg];
+   _ownsFontContext = YES;
+}
+
+
+- (void) _doneFontBackend
+{
+   if( _fontContext && _ownsFontContext)
+   {
+      mulle_thread_mutex_do( CGLayoutContextFreeTypeLock)
+      {
+         nvgDeleteInternal( _fontContext);
+      }
+   }
+   _fontContext     = NULL;
+   _ownsFontContext = NO;
 }
 
 
@@ -53,7 +74,7 @@
    if( font)
       return( font);
 
-   fontID = mvgCreateFontMem( _cgBackend.context, name, data.bytes, (int) data.length, 0);
+   fontID = mvgCreateFontMem( _fontContext, name, data.bytes, (int) data.length, 0);
    if( fontID == -1)
       return( nil);
 
@@ -78,7 +99,7 @@
    if( font)
       return( font);
 
-   fontID = mvgCreateFont( _cgBackend.context, name, filename);
+   fontID = mvgCreateFont( _fontContext, name, filename);
    if( fontID == -1)
       return( nil);
 
@@ -98,7 +119,7 @@
    assert( self->_defaultFontName);
    face = font ? [font nameUTF8String] : self->_defaultFontName;
 
-   nvgFontFace( _cgBackend.context, face);
+   nvgFontFace( _fontContext, face);
    _hasLoadedFont = YES;
 }
 

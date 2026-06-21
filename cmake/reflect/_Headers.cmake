@@ -84,9 +84,7 @@ src/generic/include.h
 #
 set( PUBLIC_HEADERS
 src/CGAffineTransform+nanovg.h
-src/CGBackend+nanovg.h
 src/CGContext+DrawingConveniences.h
-src/CGContext+Drawing.h
 src/CGContext+nanovg.h
 src/CGFramebuffer+nanovg.h
 src/CGLayoutContext+nanovg.h
@@ -94,9 +92,8 @@ src/CGPath+nanovg.h
 src/_MulleCGBackend.h
 src/MulleCGNanovg.h
 src/generic/MulleObjCDeps+MulleCGNanovg.h
+src/gpu/CGContext+GPUFuture.h
 src/gpu/CGContext+GPUShader.h
-src/gpu/CGContext+GPU.h
-src/gpu/CGFramebuffer+GPU.h
 src/nanovg+UTF8String.h
 )
 

@@ -6,7 +6,6 @@ include( _Sources OPTIONAL)
 
 # mulle-nanovg embedded sources
 list( APPEND SOURCES
-   mulle-nanovg/src/mulle-nanovg.c
    mulle-nanovg/src/nanovg.c
    mulle-nanovg/src/nanovg_d3d11.c
    mulle-nanovg/src/nanovg_mtl.m

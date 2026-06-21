@@ -14,17 +14,14 @@
 
 
 #import "CGAffineTransform+nanovg.h"
-#import "CGBackend+nanovg.h"
 #import "CGContext+DrawingConveniences.h"
-#import "CGContext+Drawing.h"
 #import "CGContext+nanovg.h"
 #import "CGFramebuffer+nanovg.h"
 #import "CGLayoutContext+nanovg.h"
 #import "CGPath+nanovg.h"
 #import "MulleObjCDeps+MulleCGNanovg.h"
+#import "CGContext+GPUFuture.h"
 #import "CGContext+GPUShader.h"
-#import "CGContext+GPU.h"
-#import "CGFramebuffer+GPU.h"
 
 
 #endif

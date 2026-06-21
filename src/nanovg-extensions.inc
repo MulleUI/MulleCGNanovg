@@ -157,7 +157,7 @@ void nvgRoundedRectVarying_alternative( NVGcontext *ctx,
    }
 
    *q++ = x;
-   *q++ = y + rxTL;
+   *q++ = y + ryTL;
 
    *q++ = NVG_CLOSE;
 

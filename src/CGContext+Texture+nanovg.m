@@ -1,19 +1,11 @@
 //
 // Copyright (c) 2022 Nat!, Mulle kybernetiK
 //
-#import "CGContext+Texture.h"
-// Map old ivar names to new backend-agnostic names
-#define _vg         _cgBackend.context
-#define _nvgFlags   _backendFlags
-
-
 #import "import-private.h"
 
-#import "CGContext+Drawing.h"
-#import "CGContext+GPU.h"
+#import "CGContext+Texture.h"
+#import "CGContext+GPUFuture.h"
 #import "CGContext+nanovg.h"
-#import "CGImage.h"
-#import "CGFramebuffer.h"
 
 
 @implementation CGContext( Texture)
@@ -25,7 +17,7 @@
 {
    CGTextureID   textureID;
 
-   textureID = nvgCreateImageRGBA( _vg,
+   textureID = nvgCreateImageRGBA( _cgBackend.context,
                                    (int) size.width,
                                    (int) size.height,
                                    (int) textureFlags,
@@ -39,7 +31,7 @@
 {
    CGTextureID   textureID;
 
-   textureID = nvgCreateImageMem( _vg,
+   textureID = nvgCreateImageMem( _cgBackend.context,
                                   textureFlags,
                                   fileCData.bytes,
                                   (int) fileCData.length);
@@ -52,7 +44,7 @@
 {
    CGTextureID   textureID;
 
-   textureID = nvgCreateImage( _vg, filename, textureFlags);
+   textureID = nvgCreateImage( _cgBackend.context, filename, textureFlags);
    return( textureID);
 }
 
@@ -69,7 +61,7 @@
    if( textureFlags & NVG_IMAGE_MSAA)
       textureType = NVG_TEXTURE_MSAA;
 #endif
-   textureID = nvgCreateImageTexture( _vg,
+   textureID = nvgCreateImageTexture( _cgBackend.context,
                                       size.width,
                                       size.height,
                                       textureFlags,
@@ -87,7 +79,7 @@
    {
       if( _debuggingFlags & 0x2)
          MulleUILog( "release nvgImageId %td", (CGTextureID) textureID);
-      nvgDeleteImage( _vg, (int) (CGTextureID) textureID);
+      nvgDeleteImage( _cgBackend.context, (int) (CGTextureID) textureID);
       CGContextCheckBackendError( self, "after nvgDeleteImage");
    }
 
@@ -115,7 +107,7 @@
 {
    if( _debuggingFlags & 0x2)
       MulleUILog( "forgetting nvgImageId %td", (CGTextureID) textureID);
-   nvgForgetImageTexture( _vg, textureID);
+   nvgForgetImageTexture( _cgBackend.context, textureID);
    CGContextCheckBackendError( self, "after nvgForgetImageTexture");
 }
 
@@ -137,7 +129,7 @@
 
          if( _debuggingFlags & 0x2)
             MulleUILog( "release framebuffer %p", gpuFramebuffer);
-         CGContextBFN(self)->deleteFramebuffer( _vg, gpuFramebuffer);
+         CGContextBFN(self)->deleteFramebuffer( _cgBackend.context, gpuFramebuffer);
          CGContextCheckBackendError( self, "after nvgluDeleteFramebuffer");
       }
 

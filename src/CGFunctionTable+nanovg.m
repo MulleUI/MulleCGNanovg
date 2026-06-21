@@ -53,13 +53,13 @@ static void        _lineCap( void *vg, NSInteger c)                             
 static void        _lineJoin( void *vg, NSInteger j)                                                    { mvgLineJoin( VG, j); }
 static void        _globalAlpha( void *vg, CGFloat a)                                                   { mvgGlobalAlpha( VG, a); }
 
-static void        _beginPath( void *vg)                                                                 { mvgBeginPath( VG); }
+static void        _beginPath( void *vg)                                                                { mvgBeginPath( VG); }
 static void        _moveTo( void *vg, CGPoint p)                                                        { mvgMoveTo( VG, p); }
 static void        _lineTo( void *vg, CGPoint p)                                                        { mvgLineTo( VG, p); }
 static void        _bezierTo( void *vg, CGPoint c1, CGPoint c2, CGPoint p)                              { mvgBezierTo( VG, c1, c2, p); }
 static void        _quadTo( void *vg, CGPoint c, CGPoint p)                                             { mvgQuadTo( VG, c, p); }
 static void        _arcTo( void *vg, CGPoint t1, CGPoint t2, CGFloat r)                                 { mvgArcTo( VG, t1, t2, r); }
-static void        _closePath( void *vg)                                                                 { mvgClosePath( VG); }
+static void        _closePath( void *vg)                                                                { mvgClosePath( VG); }
 static void        _pathWinding( void *vg, CGPathFillStyle s)                                           { mvgPathWinding( VG, s); }
 
 static void        _rect( void *vg, CGRect r)                                                           { mvgRect( VG, r); }
@@ -68,14 +68,14 @@ static void        _roundedRectVarying( void *vg, CGRect r, struct MulleCornerIn
 static void        _ellipse( void *vg, CGPoint c, CGFloat rx, CGFloat ry)                               { mvgEllipse( VG, c, rx, ry); }
 static void        _arc( void *vg, CACircle c, CAAngle a, CARotation rot)                               { mvgArc( VG, c, a, rot); }
 static void        _arcRadians( void *vg, CACircle c, CGFloat r1, CGFloat r2, CARotationDirection dir)  { nvgArc( VG, CACircleGetCenter(c).x, CACircleGetCenter(c).y, CACircleGetRadius(c), r1, r2, dir); }
-static void        _fill( void *vg)                                                                      { mvgFill( VG); }
-static void        _stroke( void *vg)                                                                    { mvgStroke( VG); }
+static void        _fill( void *vg)                                                                     { mvgFill( VG); }
+static void        _stroke( void *vg)                                                                   { mvgStroke( VG); }
 static void        _addCGPath( void *vg, struct CGPath *path)                                           { mvgAddCGPath( VG, (CGPath *) path); }
 static void        _copyPath( void *vg, void *src_vg)                                                   { nvgCopyPath( VG, (NVGcontext *) src_vg); }
-static void        _precompilePath( void *vg)                                                            { nvgPrecompilePath( VG); }
+static void        _precompilePath( void *vg)                                                           { nvgPrecompilePath( VG); }
 
-static void   _setFillLinearGradient( void *vg, CGPoint s, CGPoint e, CGColor sc, CGColor ec)            { mvgFillPaint( VG, mvgLinearGradient( VG, s, sc, e, ec)); }
-static void   _setStrokeLinearGradient( void *vg, CGPoint s, CGPoint e, CGColor sc, CGColor ec)          { mvgStrokePaint( VG, mvgLinearGradient( VG, s, sc, e, ec)); }
+static void   _setFillLinearGradient( void *vg, CGPoint s, CGPoint e, CGColor sc, CGColor ec)           { mvgFillPaint( VG, mvgLinearGradient( VG, s, sc, e, ec)); }
+static void   _setStrokeLinearGradient( void *vg, CGPoint s, CGPoint e, CGColor sc, CGColor ec)         { mvgStrokePaint( VG, mvgLinearGradient( VG, s, sc, e, ec)); }
 static void   _setFillBoxGradient( void *vg, CGRect r, CGFloat cr, CGColor c, CGFloat f, CGColor fc)    { mvgFillPaint( VG, mvgBoxGradient( VG, r, cr, c, f, fc)); }
 static void   _setStrokeBoxGradient( void *vg, CGRect r, CGFloat cr, CGColor c, CGFloat f, CGColor fc)  { mvgStrokePaint( VG, mvgBoxGradient( VG, r, cr, c, f, fc)); }
 static void   _setFillRadialGradient( void *vg, CACircle ci, CGColor oc, CGFloat ir, CGColor ic)        { mvgFillPaint( VG, mvgRadialGradient( VG, ci, oc, ir, ic)); }
@@ -109,11 +109,83 @@ static CGRect      _textVisualBounds( void *vg, CGPoint p, char *s, size_t len) 
 static void        _textBoxBounds( void *vg, CGPoint p, char *s, size_t len, CGFloat w, CGRect *bbox)   { mvgTextBoxBounds( VG, p, s, len, w, bbox); }
 static NSUInteger  _textGlyphPositions( void *vg, CGPoint p, char *s, size_t len, struct UIGlyphPosition *pos, NSInteger max) { return mvgTextGlyphPositions( VG, p, s, len, pos, max); }
 static NSUInteger  _textBreakLines( void *vg, char *s, size_t len, CGFloat w, struct UITextRow *rows, NSUInteger max, size_t sz) { return mvgTextBreakLines( VG, s, len, w, rows, max, sz); }
-static CGTextMetrics _textMetrics( void *vg)                                                             { CGTextMetrics m; nvgTextMetrics( VG, &m.ascender, &m.descender, &m.lineHeight); m.ascender = fabsf(m.ascender); m.descender = fabsf(m.descender); return m; }
+static CGTextMetrics _textMetrics( void *vg)                                                             { CGTextMetrics m; nvgTextMetricsWithGap( VG, &m.ascender, &m.descender, &m.lineHeight, &m.lineGap); m.ascender = fabsf(m.ascender); m.descender = fabsf(m.descender); return m; }
 static void          *_getFontHandle( void *vg, int font)                                                { return nvgGetFontHandle( VG, font); }
 static void          _trace( void *vg, FILE *fp)                                                         { nvgTrace( VG, fp); }
 
+static CGFloat   _attributedText( void *vg, CGPoint p, char *s, size_t len,
+                                  struct CGTextAttribute *attributes, int nAttributes)
+{
+   NVGtextAttribute   nvgAttrs[ 16];
+   NVGtextAttribute   *attrs;
+   char               *end;
+   int                i;
+   CGFloat            result;
+
+   if( nAttributes <= 0)
+      return( p.x);
+
+   attrs = nAttributes <= 16 ? nvgAttrs : (NVGtextAttribute *) malloc( nAttributes * sizeof( NVGtextAttribute));
+
+   end = (len == (size_t) -1) ? NULL : &s[ len];
+
+   for( i = 0; i < nAttributes; i++)
+   {
+      attrs[ i].end             = &s[ attributes[ i].offset];
+      attrs[ i].textColor       = *(NVGcolor *) &attributes[ i].textColor;
+      attrs[ i].backgroundColor = *(NVGcolor *) &attributes[ i].backgroundColor;
+      attrs[ i].fontId          = (int) attributes[ i].fontId;
+      attrs[ i].fontSize        = (float) attributes[ i].fontSize;
+      attrs[ i].yOffset         = (float) attributes[ i].yOffset;
+   }
+
+   result = nvgAttributedText( VG, p.x, p.y, s, end, attrs, nAttributes);
+
+   if( attrs != nvgAttrs)
+      free( attrs);
+
+   return( result);
+}
+
 #undef VG
+
+MULLE_CG_NANOVG_GLOBAL_VAR
+CGFontFunctionTable   CGNanoVGFontFunctionTable =
+{
+   .save                          = _save,
+   .restore                       = _restore,
+   .reset                         = _reset,
+
+   .createFont                    = _createFont,
+   .createFontMem                 = _createFontMem,
+   .findFont                      = _findFont,
+   .addFallbackFontId             = _addFallbackFontId,
+   .addFallbackFont               = _addFallbackFont,
+   .resetFallbackFontsId          = _resetFallbackFontsId,
+   .resetFallbackFonts            = _resetFallbackFonts,
+
+   .fontSize                      = _fontSize,
+   .fontBlur                      = _fontBlur,
+   .textLetterSpacing             = _textLetterSpacing,
+   .textLineHeight                = _textLineHeight,
+   .textAlign                     = _textAlign,
+   .fontFaceId                    = _fontFaceId,
+   .fontFace                      = _fontFace,
+   .textColor                     = _textColor,
+   .textBackgroundColor           = _textBackgroundColor,
+   .clearType                     = _clearType,
+
+   .text                          = _text,
+   .textBox                       = _textBox,
+   .textBounds                    = _textBounds,
+   .textVisualBounds              = _textVisualBounds,
+   .textBoxBounds                 = _textBoxBounds,
+   .textGlyphPositions            = _textGlyphPositions,
+   .textBreakLines                = _textBreakLines,
+   .textMetrics                   = _textMetrics,
+   .getFontHandle                 = _getFontHandle,
+   .attributedText                = _attributedText,
+};
 
 MULLE_CG_NANOVG_GLOBAL_VAR
 CGFunctionTable   CGNanoVGFunctionTable =
@@ -190,33 +262,5 @@ CGFunctionTable   CGNanoVGFunctionTable =
    .setFillImagePattern           = _setFillImagePattern,
    .setStrokeImagePattern         = _setStrokeImagePattern,
 
-   .createFont                    = _createFont,
-   .createFontMem                 = _createFontMem,
-   .findFont                      = _findFont,
-   .addFallbackFontId             = _addFallbackFontId,
-   .addFallbackFont               = _addFallbackFont,
-   .resetFallbackFontsId          = _resetFallbackFontsId,
-   .resetFallbackFonts            = _resetFallbackFonts,
-
-   .fontSize                      = _fontSize,
-   .fontBlur                      = _fontBlur,
-   .textLetterSpacing             = _textLetterSpacing,
-   .textLineHeight                = _textLineHeight,
-   .textAlign                     = _textAlign,
-   .fontFaceId                    = _fontFaceId,
-   .fontFace                      = _fontFace,
-   .textColor                     = _textColor,
-   .textBackgroundColor           = _textBackgroundColor,
-   .clearType                     = _clearType,
-
-   .text                          = _text,
-   .textBox                       = _textBox,
-   .textBounds                    = _textBounds,
-   .textVisualBounds              = _textVisualBounds,
-   .textBoxBounds                 = _textBoxBounds,
-   .textGlyphPositions            = _textGlyphPositions,
-   .textBreakLines                = _textBreakLines,
-   .textMetrics                   = _textMetrics,
-   .getFontHandle                 = _getFontHandle,
    .trace                         = _trace,
 };

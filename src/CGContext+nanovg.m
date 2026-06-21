@@ -1,14 +1,14 @@
 //
 // Copyright (c) <|YEAR|> Nat!, Mulle kybernetiK
 //
-#import "CGContext+nanovg.h"
-
 #import "import-private.h"
 
-#import <MulleCG/CGContext+DebugPrivate.h>
-#import "CGContext+GPU.h"
+#import "CGContext+nanovg.h"
+#import "CGContext+GPUFuture.h"
 
+#import <MulleCG/CGContext+DebugPrivate.h>
 #include "nanowrap-private.h"
+
 #include <ctype.h>
 
 
@@ -21,24 +21,26 @@
          functionTable:(CGFunctionTable *) functions
   backendFunctionTable:(CGBackendFunctionTable *) backendFunctions
 {
-   _cgBackend.context          = nvg;
-   _cgBackend.functions        = *functions;
-   _cgBackend.backendFunctions = *backendFunctions;
+   _cgBackend.context             = nvg;
+   if( functions)
+      _cgBackend.functions        = *functions;
+   if( backendFunctions)
+      _cgBackend.backendFunctions = *backendFunctions;
 }
 
-- (void) _initBackend
+- (void) _initGraphicsBackend
 {
    if( ! _cgBackend.context && _backend != UIGraphicsBackendNone)
    {
 #ifdef DEBUG
-      _backendFlags |= NVG_DEBUG;
+      _cgBackend.flags |= NVG_DEBUG;
 #endif
       [self _initNanovg];
-      if( ! _cgBackend.context)
-         return;
    }
 
-   [super _initBackend]; // let CGLayoutContext do the rest
+   _cgBackend.functions = CGNanoVGFunctionTable;
+
+   // _initFontBackend is called by CGLayoutContext after super init
 }
 
 
@@ -93,15 +95,29 @@
 
 - (void) resumeRender
 {
+   CGFloat   width;
+   CGFloat   height;
+
    assert( _isRendering);
 
    CGContextRenderLog( "");
 
    CGContextCheckBackendError( self, "before resumeRender");
-   [self _changeRenderGPU:&_currentFrameInfo];
 
-   nvgBeginFrame( _cgBackend.context, _currentFrameInfo.window.frame.size.width,
-                       _currentFrameInfo.window.frame.size.height,
+   if( _viewport.size.width == -1)
+   {
+      [self _changeRenderGPU:&_currentFrameInfo];
+      width  = _currentFrameInfo.window.frame.size.width;
+      height = _currentFrameInfo.window.frame.size.height;
+   }
+   else
+   {
+      [self setViewport:_viewport];
+      width  = (CGFloat) _viewport.size.width / _currentFrameInfo.window.pixelRatio;
+      height = (CGFloat) _viewport.size.height / _currentFrameInfo.window.pixelRatio;
+   }
+
+   nvgBeginFrame( _cgBackend.context, width, height,
                        _currentFrameInfo.window.pixelRatio);
    CGContextCheckBackendError( self, "nvgBeginFrame");
 }
@@ -121,8 +137,3 @@
 @end
 
 #pragma clang diagnostic pop
-
-// Stub — overridden by CGContextBase(nanovgGL) in MulleCGNanovgGL
-@implementation CGContextBase( nanovg)
-
-@end

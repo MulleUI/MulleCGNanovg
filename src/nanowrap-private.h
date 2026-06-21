@@ -1,10 +1,13 @@
 #ifndef microvg_nanowrap_h__
 #define microvg_nanowrap_h__
 
+#import "CGColor+NVGcolor-private.h"
 
-#include <mulle-nanovg/nanovg.h>
-
-// Backend-agnostic NVG init flags — defined in each backend header (nanovg_gl.h,
+// Must be included after import-private.h
+// MEMO: could conceivably "win" some performance here, if we #include
+// nano.vg.c and compile it here instead of in the library.
+//
+// end-agnostic NVG init flags — defined in each backend header (nanovg_gl.h,
 // nanovg_d3d11.h, nanovg_mtl.h) with the same bit values. Define them here so
 // code in the core (no backend header included) can use them.
 #ifndef NVG_ANTIALIAS
@@ -32,25 +35,7 @@
 # define NVG_NO_DRAWING     (1<<7)
 #endif
 
-#include <mulle-c11/mulle-c11-bool.h>
-#include <mulle-c11/mulle-c11-integer.h>
-
-#include <assert.h>
-
-#include <MulleCG/CGTypes.h>
-
-// CGColor <-> NVGcolor zero-cost conversion
-#ifdef __has_include
-# if __has_include( "../CGColor+NVGcolor-private.h")
-#  include "../CGColor+NVGcolor-private.h"
-# endif
-// UITextRow definition — only include in ObjC context to avoid C/ObjC mixing
-# if defined( __OBJC__) && __has_include( <MulleUIBase/UITextTypes.h>)
-#  include <MulleUIBase/UITextTypes.h>
-# endif
-#endif
-
-#ifndef CGColor_NVGcolor_h__
+#ifndef NVG_CLEARTYPE
 # define CGColor_NVGcolor_h__
 # define CGColorToNVGColor CGColorToNVGColor
 static inline NVGcolor CGColorToNVGColor( CGColor c)

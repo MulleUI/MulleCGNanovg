@@ -1,10 +1,10 @@
 //
 // CGPaintable_nanovg protocol — private to MulleCGNanovg
+// Must be included after import-private.h (needs NVGpaint from nanovg.h)
 //
 #pragma once
 
-#import "CGPaintable.h"
-#include <mulle-nanovg/nanovg.h>
+#import "import.h"
 
 @protocol CGPaintable_nanovg <CGPaintable>
 @optional

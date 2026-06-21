@@ -3,17 +3,8 @@
 //
 // nanovg-specific font loading implementations for CGLayoutContext
 //
-#import "CGLayoutContext+CGFont.h"
-
-#define _vg         _cgBackend.context
-#define _nvgFlags   _backendFlags
-
 #import "import-private.h"
 
-#import "CGFont.h"
-#import "CGContext+Drawing.h"
-
-#include <assert.h>
 
 // Font data
 unsigned char   NotoSans_ttf[] =
@@ -86,6 +77,8 @@ font_by_name[] =
 
 
 @implementation CGLayoutContext ( CGFontNanoVG)
+
+@dependency CGLayoutContext( CGFont);
 
 - (CGFont *) fallbackFont
 {

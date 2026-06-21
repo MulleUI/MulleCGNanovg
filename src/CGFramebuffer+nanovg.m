@@ -1,17 +1,16 @@
-#import "CGFramebuffer+nanovg.h"
-
-#import "CGContext.h"
-#import "CGContext+Drawing.h"
-#import <MulleCG/CGContext+DebugPrivate.h>
-#import "CGContext+GPU.h"
-#import "CGContext+nanovg.h"
-#import <MulleCG/CGContext+CGFramebuffer.h>
-#import <MulleCG/CGImage+DebugPrivate.h>
-
 #import "import-private.h"
+
+#import "CGFramebuffer+nanovg.h"
+#import "CGContext+Drawing.h"
+#import "CGContext+GPUFuture.h"
+#import "CGContext+nanovg.h"
+#import <MulleCG/CGImage+DebugPrivate.h>
+#import <MulleCG/CGContext+DebugPrivate.h>
 
 
 @implementation CGFramebuffer( nanovg)
+
+@dependency CGFramebuffer( CGLayerRender);
 
 - (instancetype) initWithBitmapSize:(CGPixelSize) bitmapSize
                        textureFlags:(NSUInteger) textureFlags
@@ -32,10 +31,10 @@
    }
 
    vg              = CGContextGetNVGContext( context);
-   _gpuFramebuffer = CGContextBFN(context)->createFramebuffer( vg,
-                                             bitmapSize.width,
-                                             bitmapSize.height,
-                                             textureFlags);
+   _gpuFramebuffer = CGContextBFN( context)->createFramebuffer( vg,
+                                                                bitmapSize.width,
+                                                                bitmapSize.height,
+                                                                textureFlags);
    if( ! _gpuFramebuffer)
    {
       [self release];
@@ -79,6 +78,44 @@
 }
 
 
+- (instancetype) initWithImage:(CGImage *) image
+                  textureFlags:(NSUInteger) textureFlags
+                nameUTF8String:(char *) nameUTF8String
+                       context:(CGContext *) context
+{
+   CGPixelSize                   bitmapSize;
+   struct CGContextFramebuffer   old;
+   struct CGFrameInfo            frameInfo;
+   struct CGFrameInfo            oldFrameInfo;
+   CGRect                        rect;
+
+   assert( [image context] == context);
+   assert( [context conformsToProtocol:@protocol(UIGraphicsDrawing)]);
+
+   bitmapSize = [image bitmapSize];
+   self = [self initWithBitmapSize:bitmapSize
+                      textureFlags:textureFlags
+                    nameUTF8String:nameUTF8String
+                           context:context];
+   if( ! self)
+      return( self);
+
+   frameInfo    = CGFrameInfoFBMake( bitmapSize, 1.0, 1.0);
+   old          = [context bindFramebuffer:CGContextFramebufferMakeWithFramebuffer( self)];
+   oldFrameInfo = [context bindRender:&frameInfo];
+   {
+      rect = CGRectMake( 0.0f, 0.0f, bitmapSize.width, bitmapSize.height);
+      [(id <UIGraphicsDrawing>) context drawRect:rect
+                                          image:image
+                                          scale:1.0];
+   }
+   [context bindRender:&oldFrameInfo];
+   [context bindFramebuffer:old];
+
+   return( self);
+}
+
+
 - (void) _bindToContext
 {
    assert( CGContextIsActiveInCurrentThread( _context));
@@ -103,7 +140,7 @@
 
 
 // hacky shit
-- (void) didBeginFBRenderWithBitmapSize:(CGPixelSize) bitmapSize
+- (void) _didBeginFBRenderWithBitmapSize:(CGPixelSize) bitmapSize
                         devicePixelRatio:(CGFloat) ratio
 {
    struct NVGcontext   *vg;

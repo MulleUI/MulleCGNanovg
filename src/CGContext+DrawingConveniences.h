@@ -5,10 +5,6 @@
 // we want "import.h" always anyway
 #import "import.h"
 
-#import "CGContext+Drawing.h"
-// we want "import.h" always anyway
-#import <MulleCG/CGDrawable.h>
-
 
 
 // these convenience build on CGContext+Drawing.h

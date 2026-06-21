@@ -11,15 +11,13 @@ endif()
 # contents selected with patternfile ??-source--sources
 #
 set( SOURCES
-src/CGContext+nanovgTexture.m
+src/CGContext+Texture+nanovg.m
 src/CGContext+nanovg.m
 src/CGFramebuffer+nanovg.m
 src/CGFunctionTable+nanovg.m
 src/CGLayoutContext+CGFont+nanovg.m
 src/CGLayoutContext+nanovg.m
 src/CGPath+nanovg.c
-src/gpu/CGContext+GPU-d3d11.m
-src/gpu/CGFramebuffer+GPU-d3d11.m
 src/nanovg+UTF8String.m
 )
 

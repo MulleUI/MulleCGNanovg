@@ -15,7 +15,7 @@
 // In OpenGL a shader (vertex/fragment) is part of a "program",
 // this is really what CGShaderID is..
 
-@interface CGContext( GPUShader)
+@interface CGContext( GPUShaderFuture) <MulleObjCFuture>
 
    // inconvenient interface (shaders will still be registered by name)
    // if compile/link didn't work you get 0 as an error

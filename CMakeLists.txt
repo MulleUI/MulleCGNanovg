@@ -90,6 +90,8 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
    target_compile_definitions( "${LIBRARY_COMPILE_TARGET}" PRIVATE
       CG_COLOR_STRUCT_DEFINED   # nanovg defines struct NVGcolor, CGColor.h must not redefine it
       MULLE__NANOVG_BUILD       # export nanovg.h functions from this DLL
+      NVG_NO_STB_IMAGE_IMPLEMENTATION          # mulle-bitmap owns stb_image
+      NVG_NO_STB_IMAGE_RESIZE_IMPLEMENTATION   # mulle-bitmap owns stb_image_resize2
    )
    target_compile_options( "${LIBRARY_COMPILE_TARGET}" PRIVATE
       -include mulle-nanovg/nanovg.h  # force nanovg.h before any header so NVGcolor is defined first

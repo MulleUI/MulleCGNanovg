@@ -1,48 +1,21 @@
 //
 // Copyright (c) <|YEAR|> Nat!, Mulle kybernetiK
 //
-#ifndef CGContext_nanovg_h__
-#define CGContext_nanovg_h__
-
-// prefer a local CGContext over one in import.h
-#ifdef __has_include
-# if __has_include( "CGContext.h")
-#  import "CGContext.h"
-# endif
-#endif
-
 // we want "import.h" always anyway
 #import "import.h"
 
-#include <MulleCG/include.h>
-
 // forward declare NVGcontext so we don't pull in nanovg.h publicly
 typedef struct NVGcontext NVGcontext;
-
-// MULLE__NANOVG_GL_GLOBAL may not be defined yet if nanovg_gl.h hasn't been included
-#ifndef MULLE__NANOVG_GL_GLOBAL
-# ifdef MULLE__NANOVG_GL_BUILD
-#  if defined( _WIN32)
-#   define MULLE__NANOVG_GL_GLOBAL    extern __declspec( dllexport)
-#  else
-#   define MULLE__NANOVG_GL_GLOBAL    extern
-#  endif
-# else
-#  if defined( _WIN32) && !defined( MULLE__NANOVG_GL_INCLUDE_STATIC)
-#   define MULLE__NANOVG_GL_GLOBAL    extern __declspec( dllimport)
-#  else
-#   define MULLE__NANOVG_GL_GLOBAL    extern
-#  endif
-# endif
-#endif
 
 
 #import "CGLayoutContext+nanovg.h"
 
 // nanovg backend vtable instances
-MULLE_CG_NANOVG_GLOBAL CGFunctionTable          CGNanoVGFunctionTable;
-// defined in MulleCGNanovgGL, not MulleCGNanovg
-MULLE__NANOVG_GL_GLOBAL CGBackendFunctionTable   CGNanoVGBackendFunctionTable;
+MULLE_CG_NANOVG_GLOBAL
+CGFunctionTable          CGNanoVGFunctionTable;
+
+MULLE_CG_NANOVG_GLOBAL
+CGFontFunctionTable      CGNanoVGFontFunctionTable;
 
 
 //
@@ -74,30 +47,30 @@ static inline struct NVGcontext   *_CGContextBaseGetNVGContext( CGContextBase *s
 }
 
 
-@interface CGContext( nanovg)
+// provided by +nanovg-gl
+@interface CGContext( nanovgFuture) < MulleObjCFuture>
 
 - (instancetype) _initAsPathContext;
-- (void) _setNVGContext:(NVGcontext *) nvg
-         functionTable:(CGFunctionTable *) functions
-  backendFunctionTable:(CGBackendFunctionTable *) backendFunctions;
-
 + (CGContextNanoVGBackend) nanoVGBackend;
 + (char *) nanoVGBackendUTF8String;
-
 - (char *) nanovgInfoUTF8String;
 
 @end
 
 
+@interface CGContext( nanovg)
 
-@interface CGContextBase( nanovg)
-
-+ (CGContext *) createPathContext;
+- (void) _setNVGContext:(NVGcontext *) nvg
+         functionTable:(CGFunctionTable *) functions
+  backendFunctionTable:(CGBackendFunctionTable *) backendFunctions;
 
 @end
 
 
-@interface CGLayoutContext ( OpenGL)
+// provided by +nanovg-gl
+@interface CGContextBase( nanovgFuture) < MulleObjCFuture>
+
++ (CGContext *) createPathContext;
 
 @end
 
@@ -130,5 +103,3 @@ static inline BOOL   CGContextResetBackendError( CGContext *ctxt)
    return( [ctxt resetBackendError]);
 }
 
-
-#endif /* CGContext_nanovg_h__ */

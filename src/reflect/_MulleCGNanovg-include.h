@@ -16,7 +16,7 @@
 
 // To remove the following dependency (headers and library) completely:
 //   `mulle-sde dependency remove mulle-freetype`
-// (Use 702D6391-5589-4C40-B3D3-844C98372BE4 instead of mulle-freetype, if there are duplicate entries)
+// (Use A0186ACB-F373-452E-87DB-1C51892785BF instead of mulle-freetype, if there are duplicate entries)
 //
 // You can tweak the following #include with these commands:
 //    remove #include: `mulle-sde dependency mark mulle-freetype no-header`

@@ -1,13 +1,4 @@
-#ifndef cgaffinetransform_nanovg_h__
-#define cgaffinetransform_nanovg_h__
-
-#ifdef __has_include
-# if __has_include( <mulle-geometry/CGAffineTransform.h>)
-#  include <mulle-geometry/CGAffineTransform.h>
-# endif
-#else
-# include "include.h"
-#endif
+#import "import.h"
 
 
 typedef float   _NVGtransform[ 6];
@@ -29,4 +20,3 @@ static inline CGAffineTransform  *_NVGtransformAsCGAffineTransform( _NVGtransfor
    return( (CGAffineTransform *) xform);
 }
 
-#endif
