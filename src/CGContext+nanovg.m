@@ -15,6 +15,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wobjc-protocol-method-implementation"
 
+
 @implementation CGContext ( nanovg)
 
 - (void) _setNVGContext:(NVGcontext *) nvg
@@ -27,6 +28,7 @@
    if( backendFunctions)
       _cgBackend.backendFunctions = *backendFunctions;
 }
+
 
 - (void) _initGraphicsBackend
 {

@@ -112,6 +112,7 @@ static NSUInteger  _textBreakLines( void *vg, char *s, size_t len, CGFloat w, st
 static CGTextMetrics _textMetrics( void *vg)                                                             { CGTextMetrics m; nvgTextMetricsWithGap( VG, &m.ascender, &m.descender, &m.lineHeight, &m.lineGap); m.ascender = fabsf(m.ascender); m.descender = fabsf(m.descender); return m; }
 static void          *_getFontHandle( void *vg, int font)                                                { return nvgGetFontHandle( VG, font); }
 static void          _trace( void *vg, FILE *fp)                                                         { nvgTrace( VG, fp); }
+static void          _traceComment( void *vg, char *comment)                                                { nvgTraceComment( VG, comment); }
 
 static CGFloat   _attributedText( void *vg, CGPoint p, char *s, size_t len,
                                   struct CGTextAttribute *attributes, int nAttributes)
@@ -263,4 +264,5 @@ CGFunctionTable   CGNanoVGFunctionTable =
    .setStrokeImagePattern         = _setStrokeImagePattern,
 
    .trace                         = _trace,
+   .traceComment                  = _traceComment,
 };

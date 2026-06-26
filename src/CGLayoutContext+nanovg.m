@@ -117,7 +117,9 @@ extern mulle_thread_mutex_t   CGLayoutContextFreeTypeLock;
    // TODO: maybe boobytrappe mvgFontFace to make it unusable as one must
    //       use [font nameUTF8String] to get the proper string...
    assert( self->_defaultFontName);
-   face = font ? [font nameUTF8String] : self->_defaultFontName;
+
+   face = [font nameUTF8String];
+   face = face ? face : self->_defaultFontName;
 
    nvgFontFace( _fontContext, face);
    _hasLoadedFont = YES;

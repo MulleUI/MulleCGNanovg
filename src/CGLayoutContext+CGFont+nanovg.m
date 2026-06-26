@@ -109,12 +109,14 @@ font_by_name[] =
    NSUInteger   i, n;
 
    if( ! s)
-      s = _defaultFontName;
-
-   if( ! s)
    {
-      fprintf( stderr, "fontWithNameUTF8String: no name and no _defaultFontName\n");
-      return( nil);
+      s = _defaultFontName;
+      if( ! s)
+      {
+         mulle_fprintf( stderr, "fontWithNameUTF8String: no name and no _defaultFontName\n");
+         assert( 0);
+         return( nil);
+      }
    }
 
    font = mulle_map_get( &_fontMap, s);
