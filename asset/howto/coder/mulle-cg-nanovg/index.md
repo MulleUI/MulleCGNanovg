@@ -12,6 +12,8 @@ mulle-sde api apropos CGLayoutContext
 mulle-sde api apropos CGFramebuffer
 mulle-sde code search CGContextGetNVGContext
 mulle-sde code search mvgAddCGPath
+mulle-sde code search mvgBoxGradient
+mulle-sde code search "mvgText"
 mulle-sde code grep "bindFramebuffer"
 ```
 
@@ -28,9 +30,16 @@ mulle-sde code grep "bindFramebuffer"
 - `src/CGPath+nanovg.h`
 - `src/CGPath+nanovg.c`
 - `src/nanovg+UTF8String.h`
+- `src/nanovg+UTF8String.m`
 - `src/CGPaintable+nanovg-private.h`
 - `src/_MulleCGBackend.h`
+- `src/CGColor+NVGcolor-private.h`
+- `src/CGContext+DrawingConveniences.h`
+- `src/CGContext+Texture+nanovg.m`
+- `src/nanowrap-private.h`
+- `src/CGFunctionTable+nanovg.m`
 - `test/10-first/cgcontext.m`
+- `test/10-first/noleak.m`
 - `test/01-nogl/breaklines.stdout`
 - `test/01-nogl/breaklines-tricky.stdout`
 - `test/01-nogl/breaklines-tricky2.stdout`
@@ -46,6 +55,11 @@ mulle-sde code grep "bindFramebuffer"
 | font loading, selection, metrics, wrapping | `src/CGLayoutContext+nanovg.h`, `src/CGLayoutContext+nanovg.m`, `src/CGLayoutContext+CGFont+nanovg.m` | standalone layout contexts create a font-only NanoVG backend; bundled font names are hardcoded here |
 | offscreen rendering | `src/CGFramebuffer+nanovg.h`, `src/CGFramebuffer+nanovg.m` | bind through `CGContext`, not through the framebuffer's private `_bind*` methods |
 | raw NanoVG bridge glue | `src/CGAffineTransform+nanovg.h`, `src/CGPath+nanovg.h`, `src/nanovg+UTF8String.h` | helpers assume NanoVG-compatible float layout and CoreGraphics path command ordering |
+| mvg* wrapper API (direct NanoVG with CG types) | `src/nanowrap-private.h` (1298 lines) | every `mvg*` function wraps `nvg*` but takes `CGPoint`, `CGRect`, `CGColor`, `CACircle`, `CARotation`; `mvgBoxGradient` auto-insets rect; `mvgRadialGradient` uses different parameter order from upstream |
+| drawing conveniences (fill/stroke with color) | `src/CGContext+DrawingConveniences.h` | shorthand for `CGContextFillWithColor`, `CGContextStrokeWithColor`, `CGContextFillRoundedRectWithColor`, `CGContextTextInRect`, etc. |
+| texture/image management | `src/CGContext+Texture+nanovg.m` | create via `textureIDWithRGBABytes:` / `textureIDWithContentsOfFileUTF8String:`; deletion is queued and deferred for thread safety |
+| CGColor ↔ NVGcolor bridge | `src/CGColor+NVGcolor-private.h` | zero-copy `memcpy` conversion; both structs have identical float rgba layout |
+| backend selection | `src/_MulleCGBackend.h` | exactly one backend macro; OpenGL defaults to GLES2 on non-Apple/non-Windows |
 
 ## Local workflow delta
 

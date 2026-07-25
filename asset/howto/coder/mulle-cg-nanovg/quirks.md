@@ -28,6 +28,29 @@
 - `mvgAddCGPath` in `src/CGPath+nanovg.c` depends on path command order and current-point state. A circle-segment command infers its start angle from the current point; if the path was not moved to a sane point first, the segment is effectively broken.
 - `mvgAddCGPath` treats `CGPathFillStyleCommand` as path winding state and does not advance the current point for it. Do not model it as a drawable segment.
 
+## mvg* wrapper specifics (nanowrap-private.h)
+
+- `mvgBoxGradient` fixes the upstream NanoVG behavior: it auto-insets the rect by `feather / 4.0` before forwarding. Do not pre-inset the rect yourself.
+- `mvgRadialGradient` has a different parameter order from `nvgRadialGradient`. This repo takes `(circle, outerColor, innerRadius, innerColor)` — the outer circle is a `CACircle`, inner is a scalar radius. Upstream `nvgRadialGradient` takes inner center/radius first, then outer.
+- `mvgImagePattern` rotation is around the top-left corner of the rect, not the center. The header comment says "rotation will rarely do what you want it to, so use CGImage instead."
+- `mvgFontSize` rounds to 1/10 pt granularity (min 1 pt, max 2044 pt). The comment says "FreeType is like 1/64 rez, but nanovg is only 1/10".
+- `mvgClearType` and `mvgTextBackgroundColor` must be called _after_ `mvgTextColor` — the header explicitly warns about ordering.
+- `mvgRoundedRect` and `mvgRoundedRectVarying` accept negative corner radii and negative insets.
+- `mvgArc` short-circuits to `mvgMoveTo` when rotation is near zero — no actual arc segment is added.
+- `mvgTextBreakLines` has two code paths: if `rows` is NULL or `textRowSize >= sizeof(NVGtextRow)` it converts in-place; otherwise it alloca-copies, converts, and copies back.
+- `mvgTextMetrics` returns positive `ascender`/`descender` (via `fabsf`), unlike upstream NanoVG which returns negative descender.
+
+## Texture management
+
+- `deleteTextureID:` only queues the deletion. The actual `nvgDeleteImage` call happens later in `deleteTextureIDs`. This is a thread-safety measure: when a `CGImage` is reaped by an autorelease pool, the context may not be active on that thread.
+- `forgetTextureID:` calls `nvgForgetImageTexture`, not `nvgDeleteImage`. Use it for shared texture IDs that should not be destroyed.
+- `textureIDWithGPUTexture:bitmapSize:textureFlags:` supports MSAA textures via `NVG_TEXTURE_MSAA` when `NVG_IMAGE_MSAA` is set in flags.
+
+## Drawing conveniences
+
+- `CGContextFillCircleWithGradientColors` and `CGContextStrokeCircleWithGradientColors` use radial gradients internally. The parameter order is `(outerColor, innerColor)` — outer color first.
+- `CGContextTLAdjustmentForVisualBounds` returns a `CGPoint` adjustment. It is the only function in this header that takes a `CGLayoutContext *` instead of `CGContext *`.
+
 ## Backend selection
 
 - `_MulleCGBackend.h` expects exactly one of `MULLE_CG_BACKEND_OPENGL`, `MULLE_CG_BACKEND_D3D11`, or `MULLE_CG_BACKEND_METAL`. If none is set, the default is OpenGL.
