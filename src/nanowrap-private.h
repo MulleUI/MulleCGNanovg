@@ -1147,9 +1147,7 @@ static inline NSUInteger   _mvgTextBreakLinesInPlace( NVGcontext *vg,
    struct UITextRow    *p;
    struct NVGtextRow   *nvg_rows;
    struct NVGtextRow   *q;
-   float               minx;
-   float               maxx;
-   float               width;
+   struct NVGtextRow   tmp;
    NSRange             range;
 
    assert( s);
@@ -1169,6 +1167,29 @@ static inline NSUInteger   _mvgTextBreakLinesInPlace( NVGcontext *vg,
    {
       // super pedantic, but now we can also have UITextRow being
       // bigger than NVGtextRow and still do it in place
+      //
+      // BUT: struct NVGtextRow (start,end,next,width,minx,maxx) and
+      // struct UITextRow (range,width,minx,maxx) are NOT layout compatible.
+      // NVGtextRow has 3 pointers before its floats, UITextRow only has the
+      // 16-byte NSRange (no "next" pointer), so width/minx/maxx sit at
+      // different offsets (24/28/32 vs 16/20/24). Reading through "q"
+      // (NVGtextRow*) and writing through "p" (UITextRow*) at the SAME
+      // address is therefore reading and writing overlapping-but-not-equal
+      // struct layouts, i.e. we alias incompatible pointer types over one
+      // piece of memory. That's undefined behaviour in C: the compiler is
+      // free to assume p and q don't alias and reorder the loads/stores.
+      // With optimization on (-O2) clang did exactly that: it hoisted/sank
+      // "q->width" past "p->maxx", and since q->width's offset (24) equals
+      // p->maxx's offset (24), the store to p->maxx clobbered the value
+      // later read as q->width. Net effect: row.width silently became a
+      // copy of row.maxx (verified: this reproduced the debug/release
+      // breaklines-tricky.m diff, width=34 instead of the correct 33).
+      //
+      // Fix: snapshot the NVGtextRow into a local (memcpy, not a struct
+      // assignment through "q", to keep it independent of "q" and "p"
+      // possibly overlapping) BEFORE writing anything through "p". This
+      // removes the aliasing hazard: all reads happen strictly before any
+      // write to that address.
 
       q        = &nvg_rows[ count];
       address  = &((char *) rows)[ count * textRowSize];
@@ -1179,15 +1200,14 @@ static inline NSUInteger   _mvgTextBreakLinesInPlace( NVGcontext *vg,
          p        = (struct UITextRow *) address;
          --q;
 
-         range    = NSRangeMake( q->start - s, q->end - q->start);
-         minx     = q->minx;
-         maxx     = q->maxx;
-         width    = q->width;
+         memcpy( &tmp, q, sizeof( tmp));
+
+         range = NSRangeMake( tmp.start - s, tmp.end - tmp.start);
 
          p->range = range;
-         p->minx  = minx;
-         p->maxx  = maxx;
-         p->width = width;
+         p->minx  = tmp.minx;
+         p->maxx  = tmp.maxx;
+         p->width = tmp.width;
       }
    }
 
