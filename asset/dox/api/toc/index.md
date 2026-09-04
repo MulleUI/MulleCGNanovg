@@ -268,7 +268,7 @@ The `mulle-nanovg/` directory contains a fork of [NanoVG](https://github.com/mem
 
 ## 5. AI Usage Recommendations & Patterns
 
-- **Lifecycle:** Always create contexts with proper factory/lifecycle patterns. CGContext is created via `[[[CGContext alloc] initWithOSGraphicsContext:...] autorelease]` or `+[CGContextBase createPathContext]`. Use `CGLayoutContext`'s `_initFontBackend`/`_initNanovg` and corresponding `_done*` methods for font-specific setup.
+- **Lifecycle:** Always create contexts with proper factory/lifecycle patterns. CGContext is created via `[[[CGContext alloc] initWithOSGraphicsContext:...] autorelease]` or `+[CGContextBase pathContext]`. Use `CGLayoutContext`'s `_initFontBackend`/`_initNanovg` and corresponding `_done*` methods for font-specific setup.
 
 - **Drawing flow:** Call `mvgBeginFrame` → draw calls → `mvgEndFrame` (or `mvgCancelFrame` to abort). Between frames, the font texture cache persists; texture memory is released on `mvgEndFrame`.
 

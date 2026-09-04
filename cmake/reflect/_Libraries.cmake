@@ -22,25 +22,31 @@ if( ${CMAKE_SYSTEM_NAME} MATCHES "Linux")
       list( APPEND OS_SPECIFIC_LIBRARIES "GL")
    else()
       if( NOT GL_LIBRARY)
-         find_library( GL_LIBRARY NAMES
-            GL
-         )
+         foreach( _TMP_GL_LIBRARY_TARGET GL)
+            if( TARGET ${_TMP_GL_LIBRARY_TARGET})
+               set( GL_LIBRARY ${_TMP_GL_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT GL_LIBRARY)
+            find_library( GL_LIBRARY NAMES
+               GL
+            )
+         endif()
          message( STATUS "GL_LIBRARY is ${GL_LIBRARY}")
-         #
-         # The order looks ascending, but due to the way this file is read
-         # it ends up being descending, which is what we need.
-         #
-         if( GL_LIBRARY)
+      endif()
+      if( GL_LIBRARY)
             #
             # Add GL_LIBRARY to OS_SPECIFIC_LIBRARIES list.
             # Disable with: `mulle-sourcetree mark GL no-cmake-add`
             #
-            list( APPEND OS_SPECIFIC_LIBRARIES ${GL_LIBRARY})
+            if( NOT ${GL_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+               list( APPEND OS_SPECIFIC_LIBRARIES ${GL_LIBRARY})
+            endif()
             # intentionally left blank
-         else()
-            # Disable with: `mulle-sourcetree mark GL no-require-link`
-            message( SEND_ERROR "GL_LIBRARY was not found in GL")
-         endif()
+      else()
+         # Disable with: `mulle-sourcetree mark GL no-require-link`
+         message( SEND_ERROR "GL_LIBRARY was not found in GL")
       endif()
    endif()
 endif()
@@ -57,25 +63,31 @@ if( ${CMAKE_SYSTEM_NAME} MATCHES "Windows")
       list( APPEND OS_SPECIFIC_LIBRARIES "opengl32")
    else()
       if( NOT OPENGL32_LIBRARY)
-         find_library( OPENGL32_LIBRARY NAMES
-            opengl32
-         )
+         foreach( _TMP_OPENGL32_LIBRARY_TARGET opengl32)
+            if( TARGET ${_TMP_OPENGL32_LIBRARY_TARGET})
+               set( OPENGL32_LIBRARY ${_TMP_OPENGL32_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT OPENGL32_LIBRARY)
+            find_library( OPENGL32_LIBRARY NAMES
+               opengl32
+            )
+         endif()
          message( STATUS "OPENGL32_LIBRARY is ${OPENGL32_LIBRARY}")
-         #
-         # The order looks ascending, but due to the way this file is read
-         # it ends up being descending, which is what we need.
-         #
-         if( OPENGL32_LIBRARY)
+      endif()
+      if( OPENGL32_LIBRARY)
             #
             # Add OPENGL32_LIBRARY to OS_SPECIFIC_LIBRARIES list.
             # Disable with: `mulle-sourcetree mark opengl32 no-cmake-add`
             #
-            list( APPEND OS_SPECIFIC_LIBRARIES ${OPENGL32_LIBRARY})
+            if( NOT ${OPENGL32_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+               list( APPEND OS_SPECIFIC_LIBRARIES ${OPENGL32_LIBRARY})
+            endif()
             # intentionally left blank
-         else()
-            # Disable with: `mulle-sourcetree mark opengl32 no-require-link`
-            message( SEND_ERROR "OPENGL32_LIBRARY was not found in opengl32")
-         endif()
+      else()
+         # Disable with: `mulle-sourcetree mark opengl32 no-require-link`
+         message( SEND_ERROR "OPENGL32_LIBRARY was not found in opengl32")
       endif()
    endif()
 endif()
@@ -91,25 +103,31 @@ if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
    list( APPEND OS_SPECIFIC_LIBRARIES "harfbuzz")
 else()
    if( NOT HARFBUZZ_LIBRARY)
-      find_library( HARFBUZZ_LIBRARY NAMES
-         harfbuzz
-      )
+      foreach( _TMP_HARFBUZZ_LIBRARY_TARGET harfbuzz)
+         if( TARGET ${_TMP_HARFBUZZ_LIBRARY_TARGET})
+            set( HARFBUZZ_LIBRARY ${_TMP_HARFBUZZ_LIBRARY_TARGET})
+            break()
+         endif()
+      endforeach()
+      if( NOT HARFBUZZ_LIBRARY)
+         find_library( HARFBUZZ_LIBRARY NAMES
+            harfbuzz
+         )
+      endif()
       message( STATUS "HARFBUZZ_LIBRARY is ${HARFBUZZ_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( HARFBUZZ_LIBRARY)
+   endif()
+   if( HARFBUZZ_LIBRARY)
          #
          # Add HARFBUZZ_LIBRARY to OS_SPECIFIC_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark harfbuzz no-cmake-add`
          #
-         list( APPEND OS_SPECIFIC_LIBRARIES ${HARFBUZZ_LIBRARY})
+         if( NOT ${HARFBUZZ_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+            list( APPEND OS_SPECIFIC_LIBRARIES ${HARFBUZZ_LIBRARY})
+         endif()
          # intentionally left blank
-      else()
-         # Disable with: `mulle-sourcetree mark harfbuzz no-require-link`
-         message( SEND_ERROR "HARFBUZZ_LIBRARY was not found in harfbuzz")
-      endif()
+   else()
+      # Disable with: `mulle-sourcetree mark harfbuzz no-require-link`
+      message( SEND_ERROR "HARFBUZZ_LIBRARY was not found in harfbuzz")
    endif()
 endif()
 
@@ -124,31 +142,37 @@ if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
    list( APPEND OS_SPECIFIC_LIBRARIES "png")
 else()
    if( NOT PNG_LIBRARY)
-      find_library( PNG_LIBRARY NAMES
-         png
-      )
+      foreach( _TMP_PNG_LIBRARY_TARGET png)
+         if( TARGET ${_TMP_PNG_LIBRARY_TARGET})
+            set( PNG_LIBRARY ${_TMP_PNG_LIBRARY_TARGET})
+            break()
+         endif()
+      endforeach()
+      if( NOT PNG_LIBRARY)
+         find_library( PNG_LIBRARY NAMES
+            png
+         )
+      endif()
       message( STATUS "PNG_LIBRARY is ${PNG_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( PNG_LIBRARY)
+   endif()
+   if( PNG_LIBRARY)
          #
          # Add PNG_LIBRARY to OS_SPECIFIC_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark png no-cmake-add`
          #
-         list( APPEND OS_SPECIFIC_LIBRARIES ${PNG_LIBRARY})
+         if( NOT ${PNG_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+            list( APPEND OS_SPECIFIC_LIBRARIES ${PNG_LIBRARY})
+         endif()
          # intentionally left blank
-      else()
-         # Disable with: `mulle-sourcetree mark png no-require-link`
-         message( SEND_ERROR "PNG_LIBRARY was not found in png")
-      endif()
+   else()
+      # Disable with: `mulle-sourcetree mark png no-require-link`
+      message( SEND_ERROR "PNG_LIBRARY was not found in png")
    endif()
 endif()
 
 
 #
-# Generated from sourcetree: D1739F30-9DEB-4E5D-B8AF-9FA86B3C6970;z;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;
+# Generated from sourcetree: D1739F30-9DEB-4E5D-B8AF-9FA86B3C6970;z;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;z,zsd,zs,zd
 # Disable with : `mulle-sourcetree mark z `
 # Disable for this platform: `mulle-sourcetree mark z no-cmake-platform-${MULLE_UNAME}`
 # Disable for a sdk: `mulle-sourcetree mark z no-cmake-sdk-<name>`
@@ -157,24 +181,90 @@ if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
    list( APPEND OS_SPECIFIC_LIBRARIES "z")
 else()
    if( NOT Z_LIBRARY)
-      find_library( Z_LIBRARY NAMES
-         z
-      )
+      foreach( _TMP_Z_LIBRARY_TARGET z zsd zs zd)
+         if( TARGET ${_TMP_Z_LIBRARY_TARGET})
+            set( Z_LIBRARY ${_TMP_Z_LIBRARY_TARGET})
+            break()
+         endif()
+      endforeach()
+      if( NOT Z_LIBRARY)
+         find_library( Z_LIBRARY NAMES
+            z
+            zsd
+            zs
+            zd
+         )
+      endif()
       message( STATUS "Z_LIBRARY is ${Z_LIBRARY}")
-      #
-      # The order looks ascending, but due to the way this file is read
-      # it ends up being descending, which is what we need.
-      #
-      if( Z_LIBRARY)
+   endif()
+   if( Z_LIBRARY)
          #
          # Add Z_LIBRARY to OS_SPECIFIC_LIBRARIES list.
          # Disable with: `mulle-sourcetree mark z no-cmake-add`
          #
-         list( APPEND OS_SPECIFIC_LIBRARIES ${Z_LIBRARY})
+         if( NOT ${Z_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+            list( APPEND OS_SPECIFIC_LIBRARIES ${Z_LIBRARY})
+         endif()
          # intentionally left blank
-      else()
-         # Disable with: `mulle-sourcetree mark z no-require-link`
-         message( SEND_ERROR "Z_LIBRARY was not found in z")
+   else()
+      # Disable with: `mulle-sourcetree mark z no-require-link`
+      message( SEND_ERROR "Z_LIBRARY was not found in z
+zsd
+zs
+zd")
+   endif()
+endif()
+
+
+#
+# Generated from sourcetree: 63EA18E9-A14F-40AC-B0C8-68B42226B46A;freetype;no-all-load,no-build,no-cmake-inherit,no-cmake-loader,no-cmake-searchpath,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;Debug:freetyped,Release:freetype
+# Disable with : `mulle-sourcetree mark freetype `
+# Disable for this platform: `mulle-sourcetree mark freetype no-cmake-platform-${MULLE_UNAME}`
+# Disable for a sdk: `mulle-sourcetree mark freetype no-cmake-sdk-<name>`
+#
+if( COLLECT_OS_SPECIFIC_LIBRARIES_AS_NAMES)
+   list( APPEND OS_SPECIFIC_LIBRARIES "freetyped")
+else()
+   if( NOT FREETYPE_LIBRARY)
+      if( "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+         foreach( _TMP_FREETYPE_LIBRARY_TARGET freetyped freetype)
+            if( TARGET ${_TMP_FREETYPE_LIBRARY_TARGET})
+               set( FREETYPE_LIBRARY ${_TMP_FREETYPE_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT FREETYPE_LIBRARY)
+            find_library( FREETYPE_LIBRARY NAMES
+               freetyped
+            )
+         endif()
       endif()
+      if( NOT FREETYPE_LIBRARY)
+         foreach( _TMP_FREETYPE_LIBRARY_TARGET freetyped freetype)
+            if( TARGET ${_TMP_FREETYPE_LIBRARY_TARGET})
+               set( FREETYPE_LIBRARY ${_TMP_FREETYPE_LIBRARY_TARGET})
+               break()
+            endif()
+         endforeach()
+         if( NOT FREETYPE_LIBRARY)
+            find_library( FREETYPE_LIBRARY NAMES
+               freetype
+            )
+         endif()
+      endif()
+      message( STATUS "FREETYPE_LIBRARY is ${FREETYPE_LIBRARY}")
+   endif()
+   if( FREETYPE_LIBRARY)
+         #
+         # Add FREETYPE_LIBRARY to OS_SPECIFIC_LIBRARIES list.
+         # Disable with: `mulle-sourcetree mark freetype no-cmake-add`
+         #
+         if( NOT ${FREETYPE_LIBRARY} IN_LIST OS_SPECIFIC_LIBRARIES)
+            list( APPEND OS_SPECIFIC_LIBRARIES ${FREETYPE_LIBRARY})
+         endif()
+         # intentionally left blank
+   else()
+      # Disable with: `mulle-sourcetree mark freetype no-require-link`
+      message( SEND_ERROR "FREETYPE_LIBRARY was not found in freetype")
    endif()
 endif()

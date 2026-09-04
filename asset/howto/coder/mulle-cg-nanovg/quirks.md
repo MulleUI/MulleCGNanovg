@@ -6,7 +6,7 @@
 - `CGContextGetNVGContext` and the render helpers in `src/CGContext+nanovg.m` assert that the context is active in the current thread. The unchecked `_CGContextGetNVGContext` variants are for internal code that already proved ownership.
 - `suspendRender` calls `nvgEndFrame`; `resumeRender` starts a new frame with the current frame info. Do not treat them as no-op state toggles.
 - `flushRender` is weaker than `suspendRender`: it flushes draw calls but does not reset viewport or NanoVG caches.
-- `CGContext+nanovg.h` declares `_initAsPathContext`, `+nanoVGBackend`, `+nanoVGBackendUTF8String`, `-nanovgInfoUTF8String`, and `+createPathContext` as provided by `+nanovg-gl`. Do not assume those are implemented by the backend-agnostic core alone.
+- `CGContext+nanovg.h` declares `_initAsPathContext`, `+nanoVGBackend`, `+nanoVGBackendUTF8String`, `-nanovgInfoUTF8String`, and `+pathContext` as provided by `+nanovg-gl`. Do not assume those are implemented by the backend-agnostic core alone.
 
 ## CGLayoutContext / fonts
 

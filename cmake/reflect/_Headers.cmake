@@ -95,5 +95,6 @@ src/generic/MulleObjCDeps+MulleCGNanovg.h
 src/gpu/CGContext+GPUFuture.h
 src/gpu/CGContext+GPUShader.h
 src/nanovg+UTF8String.h
+src/reflect/_MulleCGNanovg-versioncheck.h
 )
 

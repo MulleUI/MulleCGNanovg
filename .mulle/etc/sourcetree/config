@@ -7,4 +7,5 @@ GL;none;no-all-load,no-build,no-cmake-inherit,no-cmake-platform-windows,no-delet
 opengl32;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update,only-platform-windows;787A70DF-B385-4860-851B-3FA2E89A93E8;;;;;
 harfbuzz;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;9F9E8F76-8DD9-4BA4-92AB-85B8691F9D7A;;${HARFBUZZ_BRANCH};;;
 png;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;71B7379C-8F95-48AF-BF4E-7CE563C7A60E;;;;;
-z;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;D1739F30-9DEB-4E5D-B8AF-9FA86B3C6970;;;;;
+z;none;no-all-load,no-build,no-cmake-inherit,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;D1739F30-9DEB-4E5D-B8AF-9FA86B3C6970;;;;;aliases=z,zsd,zs,zd
+freetype;${FREETYPE_NODETYPE:-none};no-all-load,no-build,no-cmake-inherit,no-cmake-loader,no-cmake-searchpath,no-delete,no-dependency,no-fs,no-header,no-import,no-share,no-update;63EA18E9-A14F-40AC-B0C8-68B42226B46A;${FREETYPE_URL:-freetype};${FREETYPE_BRANCH};${FREETYPE_TAG};;aliases=Debug:freetyped,Release:freetype

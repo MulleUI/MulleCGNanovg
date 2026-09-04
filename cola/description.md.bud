@@ -1,0 +1,6 @@
+MulleCGNanovg is the nanovg rendering backend for MulleCG. It implements the
+`CGFunctionTable` and `CGFontFunctionTable` by dispatching all drawing and text
+operations to nanovg. This is the default backend used by MulleUI.
+
+The actual OpenGL (or other GPU API) binding is not here — that lives in a
+separate library like MulleCGNanovgGL.

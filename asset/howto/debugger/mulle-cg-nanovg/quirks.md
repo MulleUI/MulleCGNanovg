@@ -9,7 +9,7 @@
 - `flushRender` does not reset viewport or NanoVG caches.
 - `CGContextCheckBackendError` only checks in `DEBUG`. Release-only failures can slip past those guards.
 - `_initGraphicsBackend` adds `NVG_DEBUG` only in debug builds.
-- `CGContext+nanovg.h` marks `_initAsPathContext`, `+nanoVGBackend`, `+nanoVGBackendUTF8String`, `-nanovgInfoUTF8String`, and `+createPathContext` as provided by `+nanovg-gl`; do not assume the backend-agnostic core implements them by itself.
+- `CGContext+nanovg.h` marks `_initAsPathContext`, `+nanoVGBackend`, `+nanoVGBackendUTF8String`, `-nanovgInfoUTF8String`, and `+pathContext` as provided by `+nanovg-gl`; do not assume the backend-agnostic core implements them by itself.
 
 ## CGLayoutContext / fonts
 
