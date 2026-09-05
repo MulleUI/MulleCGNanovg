@@ -39,6 +39,7 @@
 
 struct NVGcontext;
 
+MULLE_CG_NANOVG_GLOBAL
 void   mvgAddCGPath( struct NVGcontext *nvg, CGPath *path);
 
 #endif

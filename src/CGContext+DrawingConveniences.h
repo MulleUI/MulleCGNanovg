@@ -42,16 +42,19 @@
 
 
 // Fill with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFillWithColor( CGContext *context, CGColor color);
 
 
 // Stroke with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeWithColor( CGContext *context,
                                  CGFloat strokeWidth,
                                  CGColor color);
 
 
 // Stroke horizontal line with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeLineHWithColor( CGContext *context,
                                       CGPoint p,
                                       CGFloat w,
@@ -59,6 +62,7 @@ void   CGContextStrokeLineHWithColor( CGContext *context,
                                       CGColor color);
 
 // Stroke vertical line with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeLineVWithColor( CGContext *context,
                                       CGPoint p,
                                       CGFloat h,
@@ -66,22 +70,26 @@ void   CGContextStrokeLineVWithColor( CGContext *context,
                                       CGColor color);
 
 // Fill rounded rect with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFillRoundedRectWithColor( CGContext *context,
                                           CGRect rect,
                                           CGFloat cornerRadius,
                                           CGColor color);
 
 // Fill rect with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFillRectWithColor( CGContext *context,
                                    CGRect rect,
                                    CGColor color);
 
 // Fill circle with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFillCircleWithColor( CGContext *context,
                                      CACircle circle,
                                      CGColor color);
 
 // Stroke rounded rect with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeRoundedRectWithColor( CGContext *context,
                                             CGRect rect,
                                             CGFloat cornerRadius,
@@ -89,6 +97,7 @@ void   CGContextStrokeRoundedRectWithColor( CGContext *context,
                                             CGColor color);
 
 // Stroke inside of rounded rect with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeInsideOfRoundedRectWithColor( CGContext *context,
                                                     CGRect rect,
                                                     CGFloat cornerRadius,
@@ -96,18 +105,21 @@ void   CGContextStrokeInsideOfRoundedRectWithColor( CGContext *context,
                                                     CGColor color);
 
 // Stroke rect with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeRectWithColor( CGContext *context,
                                      CGRect rect,
                                      CGFloat strokeWidth,
                                      CGColor color);
 
 // Stroke inside of rect with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeInsideOfRectWithColor( CGContext *context,
                                              CGRect rect,
                                              CGFloat strokeWidth,
                                              CGColor color);
 
 // Stroke line with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeLineWithColor( CGContext *context,
                                      CGPoint start,
                                      CGPoint end,
@@ -115,6 +127,7 @@ void   CGContextStrokeLineWithColor( CGContext *context,
                                      CGColor color);
 
 // Stroke circle with color
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeCircleWithColor( CGContext *context,
                                        CACircle circle,
                                        CGFloat strokeWidth,
@@ -122,11 +135,13 @@ void   CGContextStrokeCircleWithColor( CGContext *context,
 
 
 // will use radialGradient!
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFillCircleWithGradientColors( CGContext *context,
                                               CACircle circle,
                                               CGColor outerColor,
                                               CGColor innerColor);
 
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextStrokeCircleWithGradientColors( CGContext *context,
                                                 CACircle circle,
                                                 CGColor outerColor,
@@ -136,6 +151,7 @@ void   CGContextStrokeCircleWithGradientColors( CGContext *context,
 
 // Text conveniences and additions
 // Format text in rect
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFormatInRect( CGContext *context,
                               CGRect rect,
                               CGContentMode contentMode,
@@ -144,23 +160,27 @@ void   CGContextFormatInRect( CGContext *context,
                               ...);
 
 // Format text at point
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFormat( CGContext *context, CGPoint point, char *format, ...);
 
 
 
 // Calculate adjustment for visual bounds
+MULLE_CG_NANOVG_GLOBAL
 CGPoint   CGContextTLAdjustmentForVisualBounds( CGLayoutContext *context,
                                                 char *s,
                                                 size_t length,
                                                 int alignment,
                                                 CGTextOptions options);
 ///
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextFillRoundedShadow( CGContext *context,
                                    CGRect rect,
                                    CGFloat cornerRadius,
                                    struct CGShadow *shadow);
 
 // Draw text inside a rect
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextTextInRect( CGContext *context,
                             char *s,
                             size_t length,
@@ -173,6 +193,7 @@ void   CGContextTextInRect( CGContext *context,
 // context as is.
 
 
+MULLE_CG_NANOVG_GLOBAL
 struct CGTextBoundsInfo   CGContextTextBoundsOptions( CGContext *context,
                                                           char *s,
                                                           size_t length,
@@ -181,6 +202,7 @@ struct CGTextBoundsInfo   CGContextTextBoundsOptions( CGContext *context,
                                                           CGTextOptions options);
 
 // Extended aligned text
+MULLE_CG_NANOVG_GLOBAL
 void   CGContextExtendedAlignedText( CGContext *context,
                                      char *s,
                                      size_t length,
@@ -189,6 +211,7 @@ void   CGContextExtendedAlignedText( CGContext *context,
                                      CGTextOptions options);
 
 // Extended aligned text (internal implementation)
+MULLE_CG_NANOVG_GLOBAL
 void   CGContext_ExtendedAlignedText( CGContext *context,
                                       char *s,
                                       size_t length,

@@ -77,3 +77,9 @@ export MULLE_SDE_CRAFT_TARGET="craftorder"
 
 
 
+#
+#
+#
+export MULLE_SDE_TEST_INCLUDE_H_EXCLUDE="pngconf.h pnglibconf.h zconf.h"
+
+
