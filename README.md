@@ -2,7 +2,7 @@
 
 Part of [MulleUI](https://github.com/MulleUI) — UIKit-shaped modular GUI libraries for mulle-objc.
 
-#### 🛰️ MulleCGNanovg is the nanovg rendering backend for MulleCG
+#### Part of [MulleUI](https://github.com/MulleUI) — UIKit-shaped modular GUI libraries for mulle-objc.
 
 MulleCGNanovg is the nanovg rendering backend for MulleCG. It implements the
 `CGFunctionTable` and `CGFontFunctionTable` by dispatching all drawing and text
@@ -72,11 +72,9 @@ Install the requirements:
 
 | Requirements                                 | Description
 |----------------------------------------------|-----------------------
-| [Mullmulle-domain fatal error: empty URL given
-eCG](https://github.com/MulleUI/MulleCG)             | Part of [MulleUI](https://github.com/MulleUI) — UIKit-shaped modular GUI libraries for mulle-objc.
+| [MulleCG](https://github.com/MulleUI/MulleCG)             | Part of [MulleUI](https://github.com/MulleUI) — UIKit-shaped modular GUI libraries for mulle-objc.
 | [mulle-freetype](https://github.com/MulleUI/mulle-freetype)             | Part of [MulleUI](https://github.com/MulleUI) — UIKit-shaped modular GUI libraries for mulle-objc.
-| [# mulle-nanovg is embedded into MulleCG and not shared](https://github.com/MulleUI/mulle-freetype)             | Part of [MulleUI](https://github.com/MulleUI) — UIKit-shaped modular GUI libraries for mulle-objc.
-| [mulle-objc-list](https://github.com/mulle-objc/mulle-objc-list)             | 📒 Lists mulle-objc runtime information contained in executables.
+| [mulle-objc-tools](https://github.com/mulle-objc/mulle-objc-tools)             | 📒 Lists mulle-objc runtime information contained in executables.
 
 Download the latest [tar](https://github.com/MulleUI/MulleCGNanovg/archive/refs/tags/latest.tar.gz) or [zip](https://github.com/MulleUI/MulleCGNanovg/archive/refs/tags/latest.zip) archive and unpack it.
 

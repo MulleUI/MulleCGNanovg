@@ -110,8 +110,8 @@ elseif( "${MULLE_PROJECT_TYPE}" STREQUAL "Library")
    include( InstallLibrary)
 
    if( LINK_PHASE)
-      include( InstallCMakeInclude)
-      include( InstallCMakePackage)
+      include( AddSubdirectorySupport)
+      include( FindPackageSupport)
    endif()
 
 else()
