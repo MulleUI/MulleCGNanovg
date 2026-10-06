@@ -99,7 +99,7 @@ Key features at a high level:
 
 ### 3.4. `CGPath+nanovg.h` — CGPath to NVG Path Conversion
 
-- `void mvgAddCGPath(struct NVGcontext *nvg, CGPath *path);` — Tessellates and emits a CGPath into the NVG context as a compatible path.
+- `void mvgAddCGPath(struct NVGcontext *nvg, CGPath *path);` — Tessellates and emits a CGPath into the NVG context as a compatible path. Exported as a global via `MULLE_CG_NANOVG_GLOBAL`.
 
 ### 3.5. `CGAffineTransform+nanovg.h` — Transform Casting
 
@@ -110,6 +110,8 @@ Key features at a high level:
 - `CGAffineTransform *_NVGtransformAsCGAffineTransform(_NVGtransform xform)` — casts `float[6]` to `CGAffineTransform*`.
 
 ### 3.6. `CGContext+DrawingConveniences.h` — High-Level Drawing Helpers
+
+All functions below are exported as globals via the `MULLE_CG_NANOVG_GLOBAL` macro.
 
 **Solid fill/stroke with color (no path construction needed):**
 - `void CGContextFillWithColor(CGContext *context, CGColor color);`
