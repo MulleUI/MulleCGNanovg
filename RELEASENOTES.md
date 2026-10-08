@@ -1,6 +1,7 @@
 ### 0.1.1
 
 
+
 * Note that `mvgAddCGPath` is exported as a global via ``MULLE_CG_NANOVG_GLOBAL``
 * Note that all functions in `CGContext+DrawingConveniences.h` are exported as globals via ``MULLE_CG_NANOVG_GLOBAL``
 
